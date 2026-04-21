@@ -1,0 +1,5 @@
+plt.figure(figsize=(8, 6))
+sns.scatterplot(data=df, x='Age', y='Study Hours', hue='Cluster', palette='viridis')
+plt.title("K-Means Clustering (3 Clusters)")
+plt.savefig('cluster_result.png')
+plt.show()

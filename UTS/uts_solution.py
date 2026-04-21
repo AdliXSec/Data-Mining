@@ -1,0 +1,593 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.cluster import KMeans
+from scipy import stats
+
+# Memuat data (menggunakan pemisah semicolon sesuai input)
+# Saya menyalin data dari prompt ke file data.csv terlebih dahulu secara manual jika belum ada
+# Namun untuk kemudahan eksekusi, saya akan langsung memproses data tersebut.
+
+data_str = """Gender;Age;Academic Pressure;Study Satisfaction;Sleep Duration;Dietary Habits;Have you ever had suicidal thoughts ?;Study Hours;Financial Stress;Family History of Mental Illness
+Male;28;2.0;4.0;7-8 hours;Moderate;Yes;9;2;Yes
+Male;28;4.0;5.0;5-6 hours;Healthy;Yes;7;1;Yes
+Male;25;1.0;3.0;5-6 hours;Unhealthy;Yes;10;4;No
+Male;23;1.0;4.0;More than 8 hours;Unhealthy;Yes;7;2;Yes
+Female;31;1.0;5.0;More than 8 hours;Healthy;Yes;4;2;Yes
+Male;19;4.0;4.0;5-6 hours;Unhealthy;Yes;1;4;Yes
+Female;34;4.0;2.0;More than 8 hours;Moderate;Yes;6;2;No
+Female;20;4.0;1.0;More than 8 hours;Healthy;Yes;3;4;Yes
+Female;33;1.0;4.0;More than 8 hours;Moderate;No;10;3;No
+Male;33;4.0;3.0;Less than 5 hours;Unhealthy;Yes;10;1;No
+Female;31;5.0;4.0;5-6 hours;Healthy;Yes;6;4;No
+Male;24;2.0;1.0;7-8 hours;Unhealthy;Yes;11;5;No
+Female;23;5.0;5.0;Less than 5 hours;Unhealthy;Yes;2;1;Yes
+Male;25;1.0;1.0;5-6 hours;Moderate;Yes;12;3;Yes
+Male;21;5.0;1.0;More than 8 hours;Unhealthy;Yes;3;;Yes
+Male;28;5.0;3.0;5-6 hours;Healthy;Yes;8;;Yes
+Male;23;5.0;2.0;More than 8 hours;Moderate;No;10;;No
+Female;23;1.0;3.0;Less than 5 hours;Healthy;Yes;0;;No
+Female;20;5.0;5.0;More than 8 hours;Unhealthy;Yes;2;;No
+Male;29;4.0;3.0;More than 8 hours;Unhealthy;Yes;1;3;No
+Male;31;2.0;3.0;More than 8 hours;Unhealthy;No;3;3;Yes
+Male;24;3.0;4.0;More than 8 hours;Healthy;Yes;1;3;No
+Male;31;2.0;4.0;More than 8 hours;Unhealthy;No;10;1;No
+Female;33;3.0;2.0;7-8 hours;Moderate;No;11;5;Yes
+Female;33;2.0;3.0;7-8 hours;Moderate;Yes;12;5;Yes
+Male;31;2.0;2.0;7-8 hours;Healthy;No;2;4;Yes
+Male;30;3.0;4.0;7-8 hours;Moderate;Yes;0;2;Yes
+Male;21;5.0;3.0;7-8 hours;Unhealthy;No;6;4;Yes
+Female;29;3.0;5.0;Less than 5 hours;Moderate;Yes;4;3;Yes
+Female;34;3.0;4.0;Less than 5 hours;Unhealthy;Yes;12;1;Yes
+Female;20;3.0;2.0;More than 8 hours;Healthy;No;2;2;No
+Female;33;2.0;5.0;Less than 5 hours;Moderate;Yes;3;3;Yes
+Male;32;5.0;2.0;5-6 hours;Moderate;Yes;12;3;No
+Female;21;5.0;3.0;7-8 hours;Moderate;No;9;2;No
+Male;26;5.0;1.0;Less than 5 hours;Unhealthy;Yes;10;5;No
+Male;26;5.0;4.0;7-8 hours;Unhealthy;No;3;2;Yes
+Female;22;1.0;1.0;Less than 5 hours;Healthy;No;2;2;No
+Male;26;4.0;5.0;Less than 5 hours;Unhealthy;No;4;1;Yes
+Male;25;1.0;3.0;7-8 hours;Unhealthy;No;8;1;Yes
+Female;21;3.0;3.0;7-8 hours;Moderate;Yes;8;5;Yes
+Male;29;1.0;1.0;7-8 hours;Healthy;No;6;1;Yes
+Male;22;1.0;3.0;7-8 hours;Unhealthy;No;6;4;No
+Male;21;3.0;2.0;7-8 hours;Unhealthy;Yes;1;5;No
+Male;31;5.0;4.0;5-6 hours;Healthy;No;12;3;No
+Female;24;1.0;3.0;5-6 hours;Moderate;No;3;5;No
+Male;20;3.0;5.0;More than 8 hours;Unhealthy;No;11;4;No
+Female;31;1.0;3.0;7-8 hours;Healthy;No;12;3;Yes
+Male;21;1.0;5.0;5-6 hours;Unhealthy;Yes;1;1;No
+Male;24;2.0;4.0;5-6 hours;Healthy;No;12;4;Yes
+Male;34;3.0;4.0;7-8 hours;Healthy;No;8;3;No
+Female;25;5.0;4.0;Less than 5 hours;Healthy;No;7;1;No
+Male;27;2.0;5.0;5-6 hours;Healthy;Yes;10;3;No
+Female;32;2.0;4.0;5-6 hours;Moderate;No;10;1;Yes
+Male;26;4.0;4.0;5-6 hours;Unhealthy;No;9;1;Yes
+Male;23;2.0;5.0;Less than 5 hours;Unhealthy;No;8;5;No
+Male;22;1.0;5.0;More than 8 hours;Moderate;No;12;4;No
+Male;29;3.0;1.0;More than 8 hours;Moderate;Yes;4;1;Yes
+Male;20;4.0;2.0;Less than 5 hours;Unhealthy;Yes;5;4;Yes
+Male;28;2.0;2.0;More than 8 hours;Unhealthy;Yes;1;1;No
+Female;30;5.0;3.0;More than 8 hours;Moderate;Yes;6;2;No
+Female;29;4.0;2.0;Less than 5 hours;Moderate;No;0;1;Yes
+Male;29;4.0;4.0;7-8 hours;Unhealthy;Yes;6;2;No
+Male;24;1.0;3.0;5-6 hours;Moderate;Yes;3;2;Yes
+Male;19;2.0;4.0;Less than 5 hours;Moderate;Yes;5;4;Yes
+Male;29;2.0;5.0;7-8 hours;Healthy;No;11;1;No
+Female;20;1.0;5.0;Less than 5 hours;Healthy;No;8;5;No
+Female;31;2.0;1.0;Less than 5 hours;Moderate;Yes;5;2;No
+Female;27;3.0;3.0;7-8 hours;Unhealthy;No;11;1;No
+Female;27;2.0;3.0;Less than 5 hours;Healthy;Yes;8;3;Yes
+Male;30;4.0;1.0;Less than 5 hours;Moderate;No;8;2;No
+Male;21;3.0;5.0;More than 8 hours;Healthy;Yes;5;1;Yes
+Female;27;4.0;2.0;7-8 hours;Unhealthy;Yes;0;2;No
+Male;28;1.0;1.0;More than 8 hours;Unhealthy;Yes;8;2;No
+Male;26;3.0;4.0;More than 8 hours;Unhealthy;Yes;11;5;No
+Male;33;3.0;2.0;7-8 hours;Healthy;No;8;2;Yes
+Female;31;1.0;3.0;7-8 hours;Unhealthy;No;10;1;Yes
+Female;32;4.0;4.0;5-6 hours;Healthy;No;2;2;No
+Male;28;3.0;4.0;5-6 hours;Moderate;Yes;10;2;No
+Male;24;4.0;3.0;More than 8 hours;Moderate;No;6;4;Yes
+Male;19;3.0;2.0;More than 8 hours;Unhealthy;Yes;3;1;No
+Male;31;1.0;2.0;7-8 hours;Unhealthy;No;8;3;No
+Female;22;3.0;3.0;7-8 hours;Moderate;Yes;7;4;No
+Female;24;5.0;2.0;5-6 hours;Healthy;No;3;5;No
+Female;33;2.0;4.0;Less than 5 hours;Moderate;Yes;10;3;Yes
+Female;34;3.0;2.0;7-8 hours;Unhealthy;Yes;0;4;Yes
+Male;18;3.0;4.0;7-8 hours;Unhealthy;Yes;9;3;Yes
+Female;32;5.0;3.0;7-8 hours;Healthy;Yes;3;3;No
+Female;18;2.0;4.0;7-8 hours;Healthy;No;9;2;No
+Male;30;1.0;4.0;Less than 5 hours;Healthy;No;10;1;Yes
+Male;25;3.0;2.0;More than 8 hours;Unhealthy;Yes;4;4;No
+Male;33;4.0;4.0;5-6 hours;Moderate;Yes;7;5;Yes
+Female;22;1.0;4.0;Less than 5 hours;Unhealthy;No;7;5;Yes
+Female;23;4.0;1.0;More than 8 hours;Healthy;No;8;4;No
+Female;26;3.0;3.0;More than 8 hours;Moderate;No;10;3;No
+Female;27;5.0;2.0;Less than 5 hours;Unhealthy;No;5;5;No
+Female;32;1.0;4.0;More than 8 hours;Unhealthy;Yes;0;2;No
+Male;26;1.0;2.0;Less than 5 hours;Moderate;No;7;5;Yes
+Male;33;4.0;4.0;7-8 hours;Healthy;Yes;11;1;Yes
+Male;21;3.0;5.0;5-6 hours;Healthy;No;5;2;No
+Male;30;5.0;2.0;5-6 hours;Unhealthy;Yes;0;2;No
+Female;24;5.0;1.0;7-8 hours;Healthy;No;8;5;No
+Female;26;4.0;5.0;More than 8 hours;Healthy;No;7;4;Yes
+Female;20;2.0;5.0;More than 8 hours;Unhealthy;Yes;4;2;No
+Female;29;3.0;3.0;7-8 hours;Healthy;Yes;5;5;Yes
+Male;19;2.0;5.0;5-6 hours;Healthy;No;9;1;Yes
+Female;19;1.0;1.0;5-6 hours;Healthy;Yes;10;3;No
+Female;25;2.0;2.0;More than 8 hours;Moderate;No;11;2;Yes
+Male;18;5.0;5.0;5-6 hours;Moderate;No;3;4;No
+Female;22;2.0;5.0;More than 8 hours;Unhealthy;Yes;7;5;No
+Male;18;3.0;4.0;Less than 5 hours;Moderate;Yes;9;1;No
+Female;20;1.0;3.0;7-8 hours;Healthy;Yes;0;5;No
+Male;28;2.0;5.0;5-6 hours;Healthy;No;4;1;Yes
+Female;21;1.0;4.0;7-8 hours;Healthy;No;8;5;Yes
+Female;20;1.0;3.0;7-8 hours;Unhealthy;No;2;2;Yes
+Female;30;4.0;3.0;More than 8 hours;Unhealthy;No;8;2;Yes
+Male;31;3.0;5.0;Less than 5 hours;Moderate;Yes;10;4;No
+Male;22;4.0;2.0;More than 8 hours;Unhealthy;No;10;1;Yes
+Male;25;3.0;5.0;7-8 hours;Unhealthy;Yes;2;1;No
+Male;30;5.0;1.0;Less than 5 hours;Unhealthy;No;2;5;Yes
+Male;30;1.0;5.0;Less than 5 hours;Moderate;Yes;0;1;No
+Female;26;4.0;1.0;5-6 hours;Unhealthy;Yes;0;1;No
+Male;28;3.0;3.0;More than 8 hours;Unhealthy;Yes;6;3;Yes
+Female;30;3.0;5.0;5-6 hours;Healthy;Yes;10;3;No
+Female;26;2.0;5.0;More than 8 hours;Moderate;Yes;10;4;Yes
+Female;29;5.0;5.0;7-8 hours;Moderate;Yes;6;2;Yes
+Female;28;1.0;2.0;5-6 hours;Healthy;Yes;3;4;Yes
+Male;20;4.0;1.0;Less than 5 hours;Unhealthy;No;4;4;Yes
+Male;34;5.0;3.0;Less than 5 hours;Moderate;Yes;11;5;No
+Female;33;4.0;1.0;5-6 hours;Healthy;Yes;12;1;No
+Female;19;4.0;3.0;5-6 hours;Healthy;No;5;2;Yes
+Male;27;4.0;2.0;More than 8 hours;Moderate;Yes;4;3;No
+Female;22;3.0;5.0;Less than 5 hours;Healthy;Yes;7;5;No
+Male;25;5.0;2.0;Less than 5 hours;Healthy;No;9;1;Yes
+Female;20;2.0;3.0;7-8 hours;Unhealthy;Yes;0;3;Yes
+Female;29;2.0;2.0;Less than 5 hours;Moderate;Yes;12;1;No
+Female;34;3.0;4.0;More than 8 hours;Healthy;Yes;6;3;No
+Male;27;5.0;2.0;5-6 hours;Unhealthy;Yes;12;3;Yes
+Female;26;3.0;2.0;Less than 5 hours;Unhealthy;No;6;5;Yes
+Male;34;1.0;4.0;7-8 hours;Healthy;Yes;12;3;No
+Female;24;2.0;2.0;5-6 hours;Moderate;Yes;5;3;No
+Male;18;3.0;4.0;5-6 hours;Healthy;Yes;9;1;No
+Female;28;2.0;4.0;7-8 hours;Healthy;Yes;2;4;Yes
+Male;18;5.0;2.0;7-8 hours;Unhealthy;Yes;8;2;Yes
+Male;19;5.0;1.0;More than 8 hours;Moderate;No;2;3;No
+Male;33;1.0;2.0;Less than 5 hours;Healthy;No;1;3;No
+Male;20;4.0;4.0;5-6 hours;Unhealthy;Yes;11;2;Yes
+Male;29;5.0;3.0;5-6 hours;Healthy;No;11;2;Yes
+Female;33;5.0;4.0;7-8 hours;Moderate;Yes;12;3;No
+Male;34;1.0;3.0;More than 8 hours;Moderate;Yes;8;1;No
+Female;24;2.0;3.0;More than 8 hours;Healthy;Yes;0;5;Yes
+Female;24;4.0;2.0;Less than 5 hours;Unhealthy;No;8;5;Yes
+Female;25;3.0;2.0;More than 8 hours;Moderate;No;0;4;Yes
+Female;28;4.0;5.0;5-6 hours;Unhealthy;No;3;4;No
+Male;30;1.0;5.0;5-6 hours;Moderate;Yes;10;3;No
+Female;28;4.0;3.0;More than 8 hours;Healthy;Yes;12;5;Yes
+Female;29;3.0;2.0;Less than 5 hours;Moderate;No;5;2;Yes
+Female;34;2.0;5.0;7-8 hours;Healthy;Yes;8;3;Yes
+Female;32;2.0;3.0;7-8 hours;Moderate;No;6;1;No
+Male;24;5.0;2.0;7-8 hours;Unhealthy;No;4;5;No
+Male;29;5.0;5.0;More than 8 hours;Moderate;Yes;4;1;Yes
+Female;26;2.0;3.0;5-6 hours;Healthy;No;12;5;No
+Male;29;4.0;5.0;More than 8 hours;Moderate;No;6;2;No
+Female;25;4.0;4.0;Less than 5 hours;Moderate;No;1;1;No
+Female;28;5.0;2.0;5-6 hours;Healthy;Yes;3;5;No
+Female;19;2.0;5.0;More than 8 hours;Moderate;No;1;3;Yes
+Male;24;2.0;5.0;7-8 hours;Unhealthy;Yes;5;4;No
+Female;20;3.0;2.0;5-6 hours;Unhealthy;Yes;10;5;No
+Male;33;2.0;5.0;Less than 5 hours;Moderate;Yes;0;1;Yes
+Male;27;3.0;1.0;5-6 hours;Moderate;Yes;9;5;Yes
+Male;24;4.0;2.0;5-6 hours;Unhealthy;No;12;2;No
+Male;32;3.0;4.0;Less than 5 hours;Healthy;Yes;7;1;No
+Male;33;2.0;4.0;Less than 5 hours;Unhealthy;Yes;12;4;Yes
+Male;27;1.0;2.0;7-8 hours;Unhealthy;Yes;12;1;No
+Male;25;5.0;2.0;More than 8 hours;Moderate;No;4;5;No
+Male;21;1.0;5.0;More than 8 hours;Unhealthy;No;2;2;Yes
+Male;20;2.0;3.0;More than 8 hours;Unhealthy;No;3;1;No
+Male;33;3.0;4.0;More than 8 hours;Moderate;No;7;3;No
+Male;27;2.0;5.0;Less than 5 hours;Moderate;No;2;5;Yes
+Female;31;1.0;2.0;7-8 hours;Moderate;Yes;9;4;No
+Male;26;2.0;1.0;5-6 hours;Moderate;No;8;3;Yes
+Female;33;5.0;4.0;Less than 5 hours;Moderate;No;6;3;Yes
+Female;18;5.0;2.0;Less than 5 hours;Moderate;No;2;3;Yes
+Male;22;5.0;2.0;7-8 hours;Unhealthy;Yes;12;4;No
+Female;19;3.0;4.0;7-8 hours;Healthy;Yes;10;2;No
+Male;22;2.0;4.0;Less than 5 hours;Healthy;No;3;3;No
+Male;34;4.0;5.0;Less than 5 hours;Moderate;Yes;3;2;Yes
+Male;33;5.0;4.0;5-6 hours;Moderate;Yes;0;5;No
+Male;20;2.0;3.0;More than 8 hours;Unhealthy;No;0;3;Yes
+Male;22;3.0;4.0;5-6 hours;Healthy;Yes;11;2;Yes
+Female;29;5.0;2.0;5-6 hours;Moderate;Yes;8;4;No
+Female;27;2.0;2.0;Less than 5 hours;Healthy;No;3;4;No
+Female;28;4.0;4.0;Less than 5 hours;Moderate;No;2;1;No
+Female;30;2.0;2.0;Less than 5 hours;Healthy;No;10;4;No
+Male;34;2.0;3.0;5-6 hours;Moderate;No;12;2;No
+Female;18;4.0;1.0;More than 8 hours;Healthy;No;10;1;Yes
+Male;20;3.0;4.0;Less than 5 hours;Healthy;No;3;3;Yes
+Male;19;5.0;1.0;Less than 5 hours;Healthy;Yes;7;3;No
+Male;26;4.0;3.0;7-8 hours;Healthy;No;5;4;Yes
+Female;25;3.0;5.0;7-8 hours;Unhealthy;No;9;5;No
+Male;32;5.0;1.0;More than 8 hours;Healthy;No;2;3;Yes
+Male;19;4.0;1.0;More than 8 hours;Moderate;Yes;2;2;No
+Male;27;2.0;4.0;More than 8 hours;Unhealthy;No;3;3;No
+Female;24;5.0;1.0;More than 8 hours;Moderate;Yes;6;5;No
+Male;32;5.0;3.0;More than 8 hours;Healthy;No;7;1;No
+Male;24;2.0;2.0;5-6 hours;Healthy;No;9;2;Yes
+Female;34;3.0;1.0;More than 8 hours;Healthy;Yes;5;4;No
+Female;29;3.0;4.0;More than 8 hours;Moderate;Yes;6;5;No
+Female;19;4.0;5.0;7-8 hours;Moderate;Yes;4;4;Yes
+Male;33;3.0;2.0;More than 8 hours;Moderate;No;5;1;No
+Male;22;2.0;1.0;Less than 5 hours;Unhealthy;Yes;12;2;No
+Male;24;1.0;2.0;More than 8 hours;Unhealthy;Yes;0;2;Yes
+Male;29;3.0;3.0;7-8 hours;Unhealthy;Yes;1;3;Yes
+Male;32;5.0;1.0;Less than 5 hours;Moderate;Yes;3;1;Yes
+Female;25;3.0;4.0;5-6 hours;Healthy;No;4;2;No
+Female;20;4.0;5.0;More than 8 hours;Healthy;Yes;6;4;Yes
+Female;23;5.0;1.0;5-6 hours;Healthy;No;12;3;No
+Male;27;1.0;5.0;Less than 5 hours;Healthy;No;5;2;Yes
+Female;29;1.0;2.0;Less than 5 hours;Unhealthy;Yes;4;5;No
+Female;20;4.0;1.0;5-6 hours;Unhealthy;No;4;5;No
+Male;34;3.0;5.0;7-8 hours;Moderate;Yes;4;5;No
+Male;32;3.0;3.0;5-6 hours;Healthy;Yes;8;4;Yes
+Male;33;5.0;1.0;Less than 5 hours;Healthy;No;10;2;No
+Female;28;5.0;2.0;Less than 5 hours;Unhealthy;Yes;4;1;No
+Female;20;4.0;5.0;5-6 hours;Moderate;Yes;11;4;No
+Female;29;3.0;5.0;5-6 hours;Healthy;No;9;1;No
+Female;25;2.0;2.0;More than 8 hours;Unhealthy;No;4;5;No
+Male;23;3.0;1.0;Less than 5 hours;Healthy;No;8;2;No
+Female;28;4.0;2.0;Less than 5 hours;Healthy;No;3;5;No
+Male;25;4.0;2.0;Less than 5 hours;Moderate;No;1;3;Yes
+Male;26;2.0;1.0;More than 8 hours;Unhealthy;Yes;3;3;No
+Male;;4.0;3.0;7-8 hours;Unhealthy;Yes;6;3;No
+Male;;5.0;2.0;7-8 hours;Healthy;Yes;8;1;No
+Male;;3.0;2.0;5-6 hours;Moderate;No;8;5;No
+Male;;2.0;5.0;Less than 5 hours;Moderate;No;1;4;No
+Female;;4.0;4.0;5-6 hours;Healthy;No;5;2;No
+Male;;2.0;4.0;Less than 5 hours;Healthy;Yes;5;4;Yes
+Female;18;1.0;5.0;Less than 5 hours;Unhealthy;No;11;5;Yes
+Male;32;2.0;5.0;Less than 5 hours;Unhealthy;Yes;9;5;No
+Male;28;2.0;5.0;5-6 hours;Moderate;Yes;2;4;No
+Female;24;4.0;3.0;Less than 5 hours;Healthy;Yes;3;5;Yes
+Male;28;5.0;5.0;More than 8 hours;Healthy;Yes;10;2;No
+Female;28;5.0;1.0;More than 8 hours;Moderate;No;8;3;Yes
+Female;20;5.0;4.0;More than 8 hours;Unhealthy;No;8;3;Yes
+Male;31;1.0;3.0;Less than 5 hours;Healthy;Yes;4;3;No
+Male;30;2.0;3.0;Less than 5 hours;Healthy;Yes;6;3;No
+Female;21;1.0;1.0;Less than 5 hours;Moderate;No;12;1;No
+Female;19;3.0;5.0;5-6 hours;Healthy;No;3;3;No
+Male;23;3.0;5.0;5-6 hours;Healthy;Yes;10;5;Yes
+Female;24;1.0;1.0;Less than 5 hours;Moderate;No;0;3;Yes
+Female;34;3.0;3.0;More than 8 hours;Moderate;No;12;5;No
+Male;20;3.0;3.0;More than 8 hours;Healthy;Yes;6;5;Yes
+Male;23;1.0;1.0;7-8 hours;Unhealthy;Yes;7;2;No
+Female;34;1.0;4.0;More than 8 hours;Moderate;No;11;3;No
+Male;33;4.0;5.0;More than 8 hours;Moderate;Yes;8;1;No
+Male;70;5.0;5.0;More than 8 hours;Healthy;No;7;1;Yes
+Male;68;5.0;5.0;7-8 hours;Healthy;Yes;6;2;No
+Male;345;3.0;1.0;7-8 hours;Moderate;No;7;3;No
+Male;234;1.0;1.0;5-6 hours;Healthy;No;7;1;No
+Female;334;4.0;3.0;7-8 hours;Healthy;Yes;12;3;Yes
+Male;34;3.0;2.0;5-6 hours;Moderate;No;4;3;Yes
+Male;29;1.0;3.0;More than 8 hours;Unhealthy;No;1;2;Yes
+Female;19;4.0;5.0;Less than 5 hours;Moderate;No;6;2;Yes
+Female;19;1.0;1.0;More than 8 hours;Unhealthy;No;6;2;Yes
+Male;28;1.0;3.0;7-8 hours;Moderate;Yes;10;5;No
+Male;34;4.0;3.0;More than 8 hours;Unhealthy;No;7;1;No
+Female;32;5.0;4.0;Less than 5 hours;Unhealthy;Yes;0;3;Yes
+Female;25;2.0;5.0;5-6 hours;Moderate;No;3;5;No
+Male;30;3.0;1.0;7-8 hours;Moderate;No;10;1;No
+Female;33;4.0;3.0;7-8 hours;Healthy;No;2;2;No
+Female;23;1.0;1.0;5-6 hours;Healthy;No;8;4;Yes
+Male;28;5.0;4.0;More than 8 hours;Moderate;Yes;6;4;No
+Male;33;5.0;5.0;More than 8 hours;Moderate;Yes;11;1;Yes
+Female;31;3.0;4.0;7-8 hours;Moderate;No;0;2;Yes
+Male;32;3.0;2.0;7-8 hours;Moderate;Yes;8;2;Yes
+Male;30;5.0;1.0;5-6 hours;Moderate;Yes;10;2;Yes
+Male;34;1.0;4.0;7-8 hours;Healthy;No;4;3;No
+Male;21;1.0;4.0;5-6 hours;Unhealthy;No;9;5;No
+Female;22;4.0;2.0;5-6 hours;Healthy;Yes;8;2;No
+Male;33;4.0;3.0;Less than 5 hours;Unhealthy;Yes;8;3;Yes
+Male;23;4.0;1.0;5-6 hours;Moderate;No;8;2;No
+Female;18;4.0;4.0;7-8 hours;Unhealthy;No;7;2;No
+Male;20;4.0;3.0;5-6 hours;Healthy;No;9;5;No
+Male;29;5.0;5.0;Less than 5 hours;Unhealthy;No;11;5;Yes
+Male;18;1.0;4.0;Less than 5 hours;Unhealthy;No;5;4;Yes
+Male;28;4.0;2.0;5-6 hours;Unhealthy;No;11;1;Yes
+Male;31;2.0;4.0;5-6 hours;Unhealthy;No;0;1;No
+Male;20;1.0;3.0;More than 8 hours;Moderate;No;7;2;No
+Female;24;3.0;1.0;More than 8 hours;Unhealthy;Yes;11;3;Yes
+Female;20;3.0;2.0;7-8 hours;Moderate;Yes;2;1;Yes
+Female;28;3.0;2.0;Less than 5 hours;Healthy;Yes;10;3;Yes
+Female;30;3.0;3.0;More than 8 hours;Moderate;Yes;10;1;No
+Male;33;3.0;5.0;5-6 hours;Healthy;Yes;1;4;No
+Female;24;4.0;4.0;7-8 hours;Moderate;No;0;4;Yes
+Female;33;4.0;1.0;Less than 5 hours;Healthy;Yes;10;3;Yes
+Female;31;1.0;4.0;More than 8 hours;Unhealthy;Yes;0;1;No
+Female;31;5.0;1.0;7-8 hours;Healthy;Yes;2;5;Yes
+Male;26;4.0;3.0;5-6 hours;Moderate;Yes;6;3;Yes
+Male;33;2.0;5.0;More than 8 hours;Unhealthy;Yes;6;5;Yes
+Female;33;4.0;5.0;7-8 hours;Healthy;No;12;4;Yes
+Male;21;1.0;4.0;Less than 5 hours;Moderate;No;2;2;No
+Male;24;1.0;4.0;Less than 5 hours;Unhealthy;No;9;5;No
+Female;32;4.0;3.0;Less than 5 hours;Healthy;Yes;11;4;No
+Male;33;3.0;1.0;5-6 hours;Moderate;No;12;2;No
+Female;23;4.0;4.0;More than 8 hours;Unhealthy;Yes;1;4;No
+Female;19;4.0;5.0;7-8 hours;Moderate;Yes;12;5;No
+Female;23;2.0;2.0;More than 8 hours;Healthy;No;1;1;Yes
+Female;21;1.0;3.0;5-6 hours;Unhealthy;No;11;1;No
+Male;34;1.0;3.0;More than 8 hours;Unhealthy;Yes;11;2;Yes
+Male;20;4.0;3.0;7-8 hours;Healthy;No;11;2;Yes
+Female;28;1.0;3.0;Less than 5 hours;Moderate;Yes;0;2;Yes
+Male;26;4.0;1.0;More than 8 hours;Moderate;Yes;4;5;No
+Male;27;1.0;2.0;7-8 hours;Healthy;Yes;10;1;No
+Male;31;5.0;5.0;Less than 5 hours;Healthy;Yes;12;2;Yes
+Male;25;2.0;3.0;More than 8 hours;Moderate;No;2;4;Yes
+Male;20;1.0;3.0;More than 8 hours;Healthy;Yes;0;1;No
+Male;33;3.0;3.0;Less than 5 hours;Healthy;No;12;1;Yes
+Female;25;3.0;3.0;5-6 hours;Unhealthy;Yes;12;4;Yes
+Male;19;5.0;2.0;5-6 hours;Healthy;Yes;11;3;Yes
+Female;21;5.0;1.0;More than 8 hours;Moderate;No;11;3;No
+Female;24;4.0;4.0;Less than 5 hours;Healthy;Yes;11;2;No
+Male;26;4.0;3.0;7-8 hours;Healthy;Yes;7;4;Yes
+Male;21;1.0;2.0;5-6 hours;Healthy;Yes;9;4;No
+Male;25;5.0;3.0;More than 8 hours;Unhealthy;No;7;3;No
+Male;33;4.0;1.0;Less than 5 hours;Moderate;No;4;5;No
+Female;23;5.0;1.0;7-8 hours;Healthy;No;3;4;Yes
+Female;18;5.0;4.0;7-8 hours;Moderate;Yes;9;1;No
+Female;27;5.0;5.0;Less than 5 hours;Unhealthy;No;9;2;No
+Female;20;3.0;4.0;Less than 5 hours;Moderate;No;12;3;Yes
+Female;21;5.0;1.0;More than 8 hours;Unhealthy;No;11;5;No
+Female;28;2.0;4.0;5-6 hours;Healthy;No;10;5;Yes
+Female;24;2.0;4.0;5-6 hours;Unhealthy;No;5;2;No
+Female;23;2.0;1.0;7-8 hours;Unhealthy;Yes;10;4;Yes
+Female;24;5.0;2.0;5-6 hours;Moderate;Yes;7;3;No
+Female;34;2.0;5.0;5-6 hours;Healthy;No;11;4;No
+Female;30;3.0;3.0;5-6 hours;Moderate;No;12;1;Yes
+Male;19;3.0;3.0;More than 8 hours;Unhealthy;Yes;8;1;No
+Female;30;5.0;2.0;7-8 hours;Moderate;Yes;9;2;No
+Male;22;3.0;4.0;Less than 5 hours;Healthy;Yes;5;4;No
+Female;18;4.0;3.0;5-6 hours;Unhealthy;Yes;12;5;Yes
+Male;32;5.0;5.0;More than 8 hours;Healthy;Yes;10;2;No
+Male;18;3.0;4.0;5-6 hours;Healthy;Yes;8;4;Yes
+Male;21;1.0;3.0;5-6 hours;Moderate;No;7;3;Yes
+Male;24;3.0;4.0;Less than 5 hours;Moderate;Yes;8;3;No
+Female;34;3.0;5.0;More than 8 hours;Moderate;Yes;4;5;No
+Male;34;1.0;2.0;Less than 5 hours;Moderate;No;7;4;Yes
+Male;19;5.0;3.0;7-8 hours;Healthy;Yes;5;2;Yes
+Male;23;1.0;5.0;Less than 5 hours;Moderate;No;11;2;Yes
+Male;25;2.0;2.0;More than 8 hours;Moderate;Yes;2;4;No
+Male;19;3.0;1.0;Less than 5 hours;Unhealthy;No;10;4;No
+Female;25;1.0;2.0;7-8 hours;Healthy;No;12;4;Yes
+Male;29;5.0;2.0;More than 8 hours;Unhealthy;No;1;4;Yes
+Male;30;3.0;2.0;5-6 hours;Moderate;No;0;4;No
+Male;29;2.0;3.0;7-8 hours;Moderate;No;1;2;No
+Male;31;4.0;1.0;More than 8 hours;Healthy;Yes;7;2;No
+Male;25;1.0;4.0;7-8 hours;Unhealthy;Yes;12;4;No
+Female;18;1.0;5.0;More than 8 hours;Moderate;Yes;7;5;No
+Male;33;3.0;4.0;More than 8 hours;Unhealthy;Yes;9;1;Yes
+Male;32;1.0;3.0;7-8 hours;Unhealthy;Yes;0;4;Yes
+Male;29;2.0;4.0;More than 8 hours;Unhealthy;No;10;5;No
+Male;28;5.0;3.0;Less than 5 hours;Healthy;No;1;2;No
+Female;21;5.0;4.0;More than 8 hours;Unhealthy;No;0;5;No
+Male;31;2.0;3.0;Less than 5 hours;Moderate;No;10;3;No
+Female;34;3.0;5.0;Less than 5 hours;Moderate;Yes;3;5;No
+Female;30;3.0;4.0;5-6 hours;Healthy;Yes;4;3;Yes
+Female;28;4.0;3.0;5-6 hours;Unhealthy;Yes;6;3;Yes
+Male;29;1.0;5.0;More than 8 hours;Unhealthy;No;2;1;No
+Female;30;2.0;3.0;7-8 hours;Unhealthy;Yes;2;3;No
+Female;30;5.0;4.0;More than 8 hours;Unhealthy;No;12;1;Yes
+Female;24;3.0;1.0;5-6 hours;Healthy;No;6;4;Yes
+Female;27;5.0;1.0;7-8 hours;Unhealthy;No;7;1;Yes
+Female;32;4.0;4.0;Less than 5 hours;Unhealthy;Yes;4;1;No
+Male;25;4.0;3.0;Less than 5 hours;Unhealthy;No;1;4;No
+Female;24;1.0;5.0;5-6 hours;Healthy;No;11;2;Yes
+Male;22;3.0;4.0;5-6 hours;Moderate;No;2;4;Yes
+Male;20;2.0;5.0;More than 8 hours;Unhealthy;Yes;8;5;Yes
+Female;18;3.0;5.0;7-8 hours;Moderate;No;4;1;Yes
+Male;20;3.0;3.0;5-6 hours;Moderate;Yes;8;5;No
+Male;20;3.0;1.0;More than 8 hours;Unhealthy;Yes;9;2;No
+Male;18;3.0;3.0;7-8 hours;Moderate;No;6;3;No
+Male;27;2.0;3.0;5-6 hours;Unhealthy;No;7;2;Yes
+Female;31;1.0;3.0;5-6 hours;Moderate;No;8;1;Yes
+Female;22;1.0;4.0;7-8 hours;Unhealthy;Yes;10;2;Yes
+Male;34;5.0;1.0;Less than 5 hours;Moderate;Yes;6;4;No
+Male;32;2.0;1.0;Less than 5 hours;Unhealthy;Yes;7;1;No
+Female;22;5.0;5.0;5-6 hours;Unhealthy;No;0;3;No
+Female;21;2.0;1.0;5-6 hours;Healthy;Yes;1;4;Yes
+Female;34;2.0;5.0;Less than 5 hours;Moderate;Yes;1;1;Yes
+Male;29;5.0;4.0;7-8 hours;Unhealthy;Yes;5;5;No
+Female;26;4.0;2.0;More than 8 hours;Healthy;No;4;2;Yes
+Female;27;4.0;2.0;5-6 hours;Healthy;No;1;4;No
+Male;30;3.0;2.0;7-8 hours;Moderate;Yes;10;5;Yes
+Male;24;3.0;5.0;Less than 5 hours;Healthy;No;6;1;Yes
+Male;27;3.0;4.0;5-6 hours;Healthy;No;11;1;No
+Male;31;5.0;2.0;More than 8 hours;Unhealthy;No;10;5;Yes
+Female;30;5.0;4.0;7-8 hours;Healthy;No;6;4;Yes
+Male;30;3.0;3.0;5-6 hours;Moderate;No;4;4;Yes
+Female;32;1.0;3.0;Less than 5 hours;Healthy;Yes;5;4;Yes
+Male;33;2.0;5.0;More than 8 hours;Unhealthy;No;9;3;Yes
+Female;30;5.0;1.0;Less than 5 hours;Unhealthy;No;9;1;No
+Male;19;2.0;4.0;More than 8 hours;Unhealthy;No;6;3;No
+Female;21;1.0;2.0;5-6 hours;Moderate;Yes;2;2;No
+Female;18;3.0;1.0;More than 8 hours;Moderate;No;3;1;Yes
+Male;34;3.0;4.0;7-8 hours;Unhealthy;Yes;1;2;No
+Female;31;5.0;2.0;Less than 5 hours;Healthy;Yes;8;5;Yes
+Male;23;4.0;5.0;5-6 hours;Moderate;No;4;1;No
+Female;21;1.0;1.0;7-8 hours;Moderate;No;11;3;No
+Male;23;3.0;3.0;7-8 hours;Unhealthy;Yes;11;1;Yes
+Male;28;4.0;3.0;Less than 5 hours;Healthy;Yes;7;5;No
+Female;28;3.0;5.0;7-8 hours;Unhealthy;Yes;5;1;Yes
+Female;33;1.0;4.0;More than 8 hours;Unhealthy;No;12;5;No
+Female;29;4.0;3.0;7-8 hours;Unhealthy;Yes;4;2;Yes
+Male;23;1.0;1.0;5-6 hours;Unhealthy;Yes;1;4;No
+Female;33;1.0;1.0;Less than 5 hours;Moderate;No;10;4;Yes
+Female;28;3.0;3.0;Less than 5 hours;Healthy;No;3;1;No
+Female;19;1.0;5.0;More than 8 hours;Moderate;No;2;1;Yes
+Male;24;4.0;5.0;7-8 hours;Moderate;No;4;1;No
+Female;28;1.0;1.0;7-8 hours;Healthy;No;2;3;Yes
+Male;34;3.0;4.0;5-6 hours;Healthy;No;4;2;Yes
+Male;29;1.0;3.0;5-6 hours;Unhealthy;Yes;2;5;Yes
+Female;24;4.0;5.0;7-8 hours;Unhealthy;Yes;4;5;Yes
+Female;29;5.0;3.0;7-8 hours;Moderate;No;12;5;No
+Female;18;2.0;5.0;7-8 hours;Moderate;No;8;2;No
+Female;21;3.0;2.0;7-8 hours;Unhealthy;Yes;6;1;Yes
+Female;28;4.0;2.0;More than 8 hours;Moderate;No;0;3;No
+Male;19;4.0;2.0;5-6 hours;Moderate;No;11;1;Yes
+Male;26;5.0;4.0;Less than 5 hours;Unhealthy;Yes;11;1;Yes
+Female;27;4.0;2.0;5-6 hours;Unhealthy;No;2;4;Yes
+Female;22;5.0;2.0;7-8 hours;Moderate;Yes;5;1;Yes
+Female;27;3.0;4.0;5-6 hours;Healthy;No;0;2;No
+Female;31;5.0;4.0;More than 8 hours;Healthy;No;6;2;No
+Male;28;3.0;2.0;More than 8 hours;Healthy;No;3;1;Yes
+Male;29;3.0;3.0;7-8 hours;Moderate;No;6;1;Yes
+Female;27;5.0;2.0;5-6 hours;Unhealthy;Yes;7;2;No
+Female;24;1.0;2.0;5-6 hours;Moderate;Yes;9;5;No
+Male;31;1.0;4.0;More than 8 hours;Healthy;No;4;4;Yes
+Female;32;3.0;1.0;7-8 hours;Moderate;Yes;7;3;Yes
+Female;24;1.0;5.0;7-8 hours;Unhealthy;Yes;10;5;Yes
+Female;25;5.0;5.0;7-8 hours;Unhealthy;No;9;4;No
+Female;31;4.0;5.0;7-8 hours;Moderate;Yes;10;4;Yes
+Female;34;2.0;4.0;7-8 hours;Moderate;No;10;1;No
+Female;32;3.0;4.0;5-6 hours;Moderate;Yes;12;1;No
+Female;22;1.0;2.0;More than 8 hours;Healthy;Yes;3;4;No
+Female;29;3.0;3.0;5-6 hours;Healthy;Yes;10;1;Yes
+Female;25;3.0;1.0;7-8 hours;Healthy;No;9;3;No
+Male;27;5.0;5.0;Less than 5 hours;Healthy;Yes;6;3;Yes
+Female;18;4.0;4.0;5-6 hours;Unhealthy;No;10;2;No
+Female;30;2.0;3.0;Less than 5 hours;Unhealthy;No;2;1;No
+Male;21;2.0;4.0;More than 8 hours;Unhealthy;Yes;3;3;Yes
+Male;20;3.0;1.0;7-8 hours;Moderate;Yes;4;4;Yes
+Male;28;3.0;5.0;5-6 hours;Moderate;Yes;10;4;Yes
+Female;20;3.0;2.0;7-8 hours;Moderate;Yes;5;4;Yes
+Male;30;3.0;2.0;7-8 hours;Unhealthy;Yes;2;4;Yes
+Female;21;3.0;1.0;Less than 5 hours;Healthy;Yes;9;3;Yes
+Male;18;5.0;2.0;Less than 5 hours;Moderate;Yes;12;1;Yes
+Female;29;2.0;4.0;7-8 hours;Healthy;Yes;0;1;No
+Female;29;3.0;5.0;5-6 hours;Healthy;No;10;1;Yes
+Male;32;5.0;1.0;5-6 hours;Moderate;Yes;12;5;No
+Female;29;2.0;4.0;Less than 5 hours;Unhealthy;No;11;2;Yes
+Male;25;5.0;3.0;More than 8 hours;Unhealthy;Yes;6;4;No
+Female;32;1.0;1.0;More than 8 hours;Moderate;Yes;6;2;No
+Female;28;3.0;1.0;More than 8 hours;Healthy;Yes;5;3;Yes
+Male;24;3.0;2.0;Less than 5 hours;Unhealthy;Yes;5;1;Yes
+Female;19;1.0;2.0;More than 8 hours;Healthy;No;7;5;No
+Male;30;3.0;2.0;Less than 5 hours;Healthy;Yes;1;1;No
+Male;32;3.0;1.0;7-8 hours;Unhealthy;Yes;1;4;No
+Male;21;1.0;5.0;5-6 hours;Healthy;Yes;10;2;Yes
+Female;20;3.0;4.0;More than 8 hours;Unhealthy;Yes;3;4;Yes
+Male;26;1.0;4.0;5-6 hours;Unhealthy;Yes;10;4;Yes
+Male;20;2.0;4.0;Less than 5 hours;Healthy;No;12;5;Yes
+Male;32;3.0;4.0;5-6 hours;Moderate;Yes;12;3;Yes
+Male;24;4.0;1.0;7-8 hours;Moderate;No;5;3;Yes
+Male;21;1.0;4.0;Less than 5 hours;Moderate;Yes;5;5;Yes
+Male;28;4.0;2.0;7-8 hours;Unhealthy;Yes;11;3;No
+Female;34;1.0;4.0;7-8 hours;Moderate;No;5;1;Yes
+Male;23;1.0;1.0;7-8 hours;Healthy;No;2;5;Yes
+Female;32;5.0;1.0;5-6 hours;Healthy;Yes;7;1;Yes
+Female;28;4.0;2.0;Less than 5 hours;Moderate;Yes;11;5;Yes
+Male;22;2.0;4.0;7-8 hours;Moderate;Yes;0;2;No
+Male;22;2.0;5.0;Less than 5 hours;Moderate;No;10;5;No
+Female;20;3.0;4.0;7-8 hours;Healthy;Yes;11;4;No
+Female;24;5.0;4.0;7-8 hours;Moderate;Yes;2;4;No
+Male;29;1.0;3.0;Less than 5 hours;Unhealthy;Yes;2;3;No
+Female;19;1.0;5.0;Less than 5 hours;Moderate;No;3;3;Yes
+Female;22;2.0;2.0;Less than 5 hours;Healthy;Yes;0;1;Yes
+Female;31;3.0;4.0;7-8 hours;Moderate;No;3;2;No
+Female;23;1.0;4.0;More than 8 hours;Moderate;Yes;4;1;No
+Female;22;1.0;2.0;7-8 hours;Unhealthy;No;1;2;No
+Male;25;3.0;2.0;More than 8 hours;Unhealthy;Yes;8;1;No
+Male;21;2.0;3.0;5-6 hours;Unhealthy;Yes;6;5;Yes
+Male;25;1.0;1.0;More than 8 hours;Healthy;No;9;2;No
+Male;28;5.0;1.0;Less than 5 hours;Unhealthy;No;12;3;No
+Male;20;3.0;4.0;Less than 5 hours;Moderate;No;9;5;Yes
+Female;27;2.0;3.0;5-6 hours;Unhealthy;No;11;2;Yes
+Female;21;5.0;1.0;5-6 hours;Moderate;No;12;3;No
+Male;34;4.0;1.0;7-8 hours;Unhealthy;Yes;11;5;No
+Female;28;3.0;4.0;7-8 hours;Moderate;No;3;1;No
+Male;29;3.0;1.0;7-8 hours;Unhealthy;Yes;9;3;Yes
+Male;26;5.0;2.0;More than 8 hours;Unhealthy;No;8;3;No
+Male;24;2.0;1.0;Less than 5 hours;Unhealthy;Yes;8;5;No
+Female;23;3.0;5.0;5-6 hours;Healthy;No;1;5;Yes
+Male;33;4.0;4.0;More than 8 hours;Healthy;No;8;1;Yes
+"""
+
+import io
+df = pd.read_csv(io.StringIO(data_str), sep=';')
+
+# --- DATA EXPLORATION ---
+
+# 1. Identifikasi tipe data
+print("--- Tipe Data ---")
+print(df.dtypes)
+
+# Pisahkan numerik dan kategorikal
+numeric_cols = df.select_dtypes(include=[np.number]).columns.tolist()
+categorical_cols = df.select_dtypes(exclude=[np.number]).columns.tolist()
+
+print("\nNumeric Columns:", numeric_cols)
+print("Categorical Columns:", categorical_cols)
+
+# 2. Deteksi Outlier menggunakan Boxplot
+plt.figure(figsize=(12, 6))
+df[numeric_cols].boxplot()
+plt.title("Deteksi Outlier sebelum Pembersihan")
+plt.savefig('boxplot_outliers.png')
+plt.show()
+
+# --- DATA PREPARATION ---
+
+# 1. Standarisasi Kategorikal (Konsistensi format)
+# Menghilangkan spasi dan menyamakan case
+for col in categorical_cols:
+    df[col] = df[col].astype(str).str.strip().str.title()
+    # Khusus kolom biner, pastikan hanya Yes/No (jika ada variasi lain)
+    # Pada data ini terlihat sudah cukup konsisten, tapi kita terapkan str.title() untuk aman
+
+# 2. Handling Outlier menggunakan IQR (karena ada data Age yang sangat ekstrim seperti 345)
+# Kita lakukan pada data Age, Academic Pressure, dll.
+print("\n--- Handling Outliers ---")
+for col in numeric_cols:
+    Q1 = df[col].quantile(0.25)
+    Q3 = df[col].quantile(0.75)
+    IQR = Q3 - Q1
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+    
+    # Filter data (Menghapus baris yang memiliki outlier)
+    df = df[(df[col] >= lower_bound) & (df[col] <= upper_bound)]
+
+print(f"Jumlah baris setelah menghapus outlier: {len(df)}")
+
+# Cek kembali boxplot
+plt.figure(figsize=(12, 6))
+df[numeric_cols].boxplot()
+plt.title("Boxplot setelah Handling Outliers")
+plt.savefig('boxplot_cleaned.png')
+plt.show()
+
+# 3. Standarisasi menggunakan MinMaxScaler pada data numeric
+scaler = MinMaxScaler()
+df_scaled = df.copy()
+df_scaled[numeric_cols] = scaler.fit_transform(df[numeric_cols])
+
+# --- MODELING (K-Means) ---
+
+# Menggunakan 3 klaster pada data numerik yang sudah distandarisasi
+kmeans = KMeans(n_clusters=3, random_state=42, n_init=10)
+clusters = kmeans.fit_predict(df_scaled[numeric_cols])
+
+# Tambahkan label klaster ke dataframe asli (untuk analisis)
+df['Cluster'] = clusters
+
+print("\n--- Hasil Klastering (3 Klaster) ---")
+print(df.groupby('Cluster')[numeric_cols].mean())
+
+# Visualisasi sebaran klaster (contoh: Age vs Study Hours)
+plt.figure(figsize=(8, 6))
+sns.scatterplot(data=df, x='Age', y='Study Hours', hue='Cluster', palette='viridis')
+plt.title("K-Means Clustering (3 Clusters)")
+plt.savefig('cluster_result.png')
+plt.show()
