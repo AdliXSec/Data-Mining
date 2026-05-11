@@ -1,0 +1,95 @@
+{
+  "Random Forest": {
+    "train_acc": 0.9969,
+    "test_acc": 0.975,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "cm": [
+      [
+        234,
+        0
+      ],
+      [
+        6,
+        0
+      ]
+    ]
+  },
+  "Logistic Regression": {
+    "train_acc": 0.9885,
+    "test_acc": 0.9875,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6667,
+    "cm": [
+      [
+        234,
+        0
+      ],
+      [
+        3,
+        3
+      ]
+    ]
+  },
+  "SVM": {
+    "train_acc": 0.9781,
+    "test_acc": 0.975,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "cm": [
+      [
+        234,
+        0
+      ],
+      [
+        6,
+        0
+      ]
+    ]
+  },
+  "split": {
+    "total": 1200,
+    "train": 960,
+    "test": 240,
+    "train_0": 935,
+    "train_1": 25,
+    "test_0": 234,
+    "test_1": 6,
+    "features": [
+      "age",
+      "gender",
+      "daily_social_media_hours",
+      "sleep_hours",
+      "screen_time_before_sleep",
+      "academic_performance",
+      "physical_activity",
+      "social_interaction_level",
+      "stress_level",
+      "anxiety_level",
+      "addiction_level",
+      "platform_Both",
+      "platform_Instagram",
+      "platform_TikTok"
+    ],
+    "n_features": 14
+  },
+  "feature_importance": {
+    "sleep_hours": 0.2099,
+    "daily_social_media_hours": 0.1919,
+    "stress_level": 0.136,
+    "anxiety_level": 0.12,
+    "screen_time_before_sleep": 0.072,
+    "academic_performance": 0.07,
+    "addiction_level": 0.0479,
+    "physical_activity": 0.0445,
+    "age": 0.0295,
+    "gender": 0.024,
+    "social_interaction_level": 0.0183,
+    "platform_Both": 0.0135,
+    "platform_Instagram": 0.0116,
+    "platform_TikTok": 0.0107
+  }
+}

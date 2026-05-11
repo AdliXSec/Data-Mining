@@ -1,0 +1,3289 @@
+﻿
+================================================================================
+FILE: [IND] Modul 1 - Data Preparation (2).pdf
+================================================================================
+
+--- Page 4 ---
+ 
+ 
+ 
+ 
+Data Preprocessing  
+Data preprocessing adalah tahapan awal yang sangat penting dalam data mining, karena 
+kualitas data yang digunakan akan sangat mempengaruhi hasil analisis atau prediksi yang 
+dibuat. Hal ini mengacu pada pembersihan, transformasi, dan integrasi data agar siap untuk 
+dianalisis. Data mentah yang diambil dari sumber asli seringkali tidak siap digunakan secara 
+langsung karena adanya masalah seperti data yang hilang, noise, atau inconsistency. Oleh 
+karena itu, preprocessing bertujuan untuk membersihkan dan mengubah data agar lebih sesuai 
+untuk analisis lebih lanjut. Langkah-langkah spesifik dalam data preprocessing dapat 
+bervariasi, tergantung pada sifat data dan tujuan analisis. 
+ 
+Langkah-langkah umum dalam data preprocessing.  
+Sumber: www.geeksforgeeks.org/data-preprocessing-in-data-mining  
+Di Python, terdapat banyak libraries yang tersedia untuk melakukan data preprocessing. 
+Pemilihan libraries yang digunakan dapat disesuaikan dengan kebutuhan dari dataset terkait. 
+Berikut beberapa contoh library yang umum digunakan untuk data preprocessing. 
+ 
+Tahapan pada Data 
+Preprocessing 
+Library 
+Syntax relevan 
+Data understanding: 
+Loading data 
+pandas 
+ΓùÅ 
+pd.read_csv(): membaca data dari csv 
+ΓùÅ 
+pd.read_excel(): membaca data dari excel 
+ΓùÅ 
+pd.read_sql_query(): membaca data dari sql 
+Data understanding: 
+menampilkan 
+karakteristik data 
+pandas 
+ΓùÅ 
+head(): Menampilkan beberapa baris pertama data. 
+ΓùÅ 
+tail(): Menampilkan beberapa baris terakhir data. 
+ΓùÅ 
+head(n): 
+Menampilkan 
+n baris 
+pertama. 
+Defaultnya 
+menampilkan 5 baris. 
+ΓùÅ 
+tail(n): 
+Menampilkan 
+n 
+baris 
+terakhir. 
+Defaultnya 
+menampilkan 5 baris. 
+ΓùÅ 
+describe(): Menyediakan statistik deskriptif seperti mean, std, 
+min, max, dll. 
+ΓùÅ 
+info(): Menampilkan informasi tentang DataFrame, termasuk 
+tipe data dan jumlah nilai kosong. 
+ΓùÅ 
+value_counts(): Menghitung frekuensi nilai unik dalam suatu 
+kolom. 
+ΓùÅ 
+corr(): Menghitung korelasi antar variabel numerik. 
+ 
+ 
+
+
+--- Page 5 ---
+ 
+ 
+ 
+ 
+ΓùÅ 
+shape: Menampilkan dimensi dari DataFrame (baris dan 
+kolom). 
+ΓùÅ 
+dtypes: Menampilkan tipe data dari masing-masing kolom. 
+ΓùÅ 
+unique(): Menampilkan nilai unik dari suatu kolom. 
+ΓùÅ 
+nunique(): Menghitung jumlah nilai unik dari suatu kolom. 
+ΓùÅ 
+nunique(dropna=True): Menghitung jumlah nilai unik. Jika 
+dropna=False, NaN juga dihitung. 
+ΓùÅ 
+df['column_name'].mean(): Menampilkan rata-rata 
+ΓùÅ 
+df['column_name'].median(): Menampilkan median 
+ΓùÅ 
+df['column_name'].mode(): Menampilkan modus 
+numpy 
+ΓùÅ 
+np.mean(): Menghitung rata-rata.np.median(): Menghitung 
+median. 
+ΓùÅ 
+np.std(): Menghitung deviasi standar. 
+ΓùÅ 
+np.var(): Menghitung varians. 
+ΓùÅ 
+np.min(): Menghitung nilai minimum. 
+ΓùÅ 
+np.max(): Menghitung nilai maksimum. 
+Dengan parameter yang bisa digunakan: 
+ΓêÆ 
+a: array input. 
+ΓêÆ 
+axis: (optional) menentukan axis yang ingin 
+dihitung. 
+ΓêÆ 
+dtype: (optional) tipe data hasil. 
+Data understanding: 
+visualisasi data 
+matplotlib 
+ΓùÅ 
+plt.hist(data, bins, color, alpha): membuat histogram 
+ΓùÅ 
+plt.boxplot(data): membuat boxplot 
+ΓùÅ 
+plt.plot(x, y, color, marker): membuat line chart 
+ΓùÅ 
+plt.scatter(x, y, color, alpha): membuat scatter plot 
+ΓùÅ 
+plt.bar(x, height, color): membuat barplot 
+ΓùÅ 
+plt.pie(sizes, labels, startangle): membuat pie chart 
+ΓùÅ 
+Plt.xlabel: memberikan label untuk sumbu X 
+ΓùÅ 
+plt.ylabel: memberikan label untuk sumbu Y 
+ΓùÅ 
+plt.title: memberikan judul untuk graph 
+Dengan parameter yang dapat digunakan: 
+- 
+data: Dataset yang akan divisualisasikan. 
+- 
+bins: Jumlah bin untuk histogram. 
+- 
+color: Warna histogram. 
+- 
+alpha: Transparansi (0-1) dari warna. 
+- 
+marker: Tipe marker untuk titik data. 
+- 
+height: Tinggi setiap bar (nilai frekuensi). 
+- 
+labels: Nama kategori untuk setiap irisan. 
+- 
+startangle: Sudut awal untuk memulai irisan pie. 
+- 
+x: Kolom untuk sumbu x. 
+- 
+y: Kolom untuk sumbu y. 
+seaborn 
+ΓùÅ 
+sns.histplot(data, bins=10, color='blue', kde=False) 
+ΓùÅ 
+sns.boxplot(x, y, data) 
+ΓùÅ 
+sns.lineplot(x, y, data) 
+ΓùÅ 
+sns.scatterplot(x, y, data) 
+ΓùÅ 
+sns.barplot(x, y, data) 
+ΓùÅ 
+plt.pie(sizes, labels, autopct, startangle) 
+Dengan parameter yang dapat digunakan: 
+- 
+data: Dataset yang akan divisualisasikan. 
+- 
+bins: Jumlah bin untuk histogram. 
+- 
+color: Warna histogram. 
+ 
+ 
+ 
+
+
+--- Page 6 ---
+ 
+ 
+ 
+ 
+ 
+- 
+kde: Jika True, tambahkan kurva kepadatan (kernel density 
+estimate). 
+- 
+x: Kolom untuk sumbu x. 
+- 
+y: Kolom untuk sumbu y. 
+- 
+data: Dataset yang akan divisualisasikan. 
+Data cleansing: 
+Identifikasi dan 
+penanganan data duplikat 
+pandas 
+ΓùÅ 
+duplicated(): Mengidentifikasi baris duplikat. 
+ΓùÅ 
+drop_duplicates(): Menghapus baris duplikat. 
+ΓùÅ 
+duplicated(subset, keep): Mengidentifikasi baris yang 
+duplikat. drop_duplicates(subset=None, keep='first', 
+inplace=False): Menghapus baris yang duplikat. 
+Dengan parameter yang bisa digunakan: 
+ΓêÆ 
+subset: subset menentukan kolom yang dicek 
+ΓêÆ 
+keep: menentukan apakah mempertahankan 
+baris pertama ('first') atau terakhir ('last') 
+yang muncul. 
+ΓêÆ 
+inplace: inplace=True untuk memodifikasi 
+DataFrame secara langsung tanpa membuat 
+salinan baru. 
+numpy 
+ΓùÅ 
+np.unique(): Mengembalikan array yang berisi elemen unik 
+dari array input, juga dapat menghitung frekuensi. 
+Dengan parameter yang bisa digunakan: 
+ΓêÆ 
+ar: array input. 
+ΓêÆ 
+return_index: (optional) jika True, 
+mengembalikan indeks dari elemen unik. 
+ΓêÆ 
+return_inverse: (optional) jika True, 
+mengembalikan indeks elemen yang 
+membentuk array input dari array unik. 
+ΓêÆ 
+return_counts: 
+(optional) jika
+ 
+True, 
+mengembalikan 
+frekuensi dari elemen unik. 
+Data cleansing: 
+Penanganan data 
+inkonsisten 
+pandas 
+ΓùÅ 
+str.upper(), str.lower(), str.title(): Mengubah format string 
+untuk konsistensi. 
+ΓùÅ 
+replace(): Mengganti nilai tertentu dalam DataFrame dengan 
+nilai lain. 
+ΓùÅ 
+replace(to_replace): Mengganti dengan nilai pilihan, dapat 
+berupa scalar, list, dictionary, atau regex. 
+ΓùÅ 
+replace(value): Mendefinisikan nilai pengganti 
+ΓùÅ 
+replace(method): (Hanya untuk penggantian NaN) 
+Menentukan cara pengisian (bisa 'pad', 'backfill', dll.). 
+ΓùÅ 
+apply(): menerapkan fungsi ke setiap elemen kolom atau 
+DataFrame 
+ΓùÅ 
+apply(func): fungsi yang akan diterapkan 
+ΓùÅ 
+fillna(): mengisi fungsi yang hilang 
+ΓùÅ 
+fillna(value): nilai pengganti 
+ΓùÅ 
+fillna(method): metode pengisian 
+ΓùÅ 
+fillna(limit): jumlah nilai yang akan diisi 
+ΓùÅ 
+map(): mengganti nilai dengan mapping yang ditentukan. 
+ΓùÅ 
+str.replace(): mengganti bagian dari string dengan string lain. 
+ΓùÅ 
+strip(): menghapus karakter di awal dan akhir string 
+Numpy 
+ΓùÅ 
+np.where(): 
+Mengembalikan elemen dari dua array 
+berdasarkan kondisi. 
+ΓùÅ 
+np.char.replace(): Mengganti substring dalam array string. 
+Dengan parameter yang bisa digunakan: 
+- 
+condition: kondisi untuk menentukan elemen yang diambil.. 
+ 
+ 
+
+
+--- Page 7 ---
+ 
+ 
+ 
+ 
+ 
+- 
+x: elemen yang diambil jika kondisi True. 
+- 
+y: elemen yang diambil jika kondisi False 
+Data cleansing: 
+Mengoreksi nilai yang 
+tidak valid 
+Pandas 
+ΓùÅ 
+isna() atau isnull(): Mengidentifikasi nilai NaN. 
+ΓùÅ 
+fillna(): Mengisi nilai yang kosong. 
+ΓùÅ 
+dropna(): Menghapus baris dengan nilai kosong 
+Numpy 
+ΓùÅ 
+np.nan: Menyimpan nilai NaN (Not a Number). 
+ΓùÅ 
+np.nan_to_num(): Mengubah NaN menjadi nilai tertentu. 
+ΓùÅ 
+np.isnan(): Mengidentifikasi elemen NaN dalam array. 
+Data cleansing: 
+Menangani outlier 
+Numpy 
+ΓùÅ 
+np.mean(): Menghitung rata-rata. 
+ΓùÅ 
+np.std(): Menghitung deviasi standar. 
+ΓùÅ 
+np.percentile(): Menghitung nilai persentil. 
+Dengan parameter yang bisa digunakan: 
+ΓêÆ 
+a: array input. 
+ΓêÆ 
+q: persentil (antara 0-100) untuk 
+np.percentile(). 
+Data reduction 
+Scikit-learn 
+ΓùÅ 
+PCA(n_components): Reduksi dimensi dengan Principal 
+Component Analysis 
+Dengan parameter yang dapat digunakan: 
+- 
+n_components: Jumlah komponen utama yang diinginkan. 
+Jika None, semua komponen akan dihitung. 
+Pandas 
+ΓùÅ 
+df.sample(n, frac, replace, random_state) 
+Dengan parameter yang dapat digunakan: 
+- 
+n: Jumlah baris yang diambil sebagai sampel. 
+- 
+frac: Persentase sampel dari DataFrame. 
+- 
+replace: Jika True, sampel diambil dengan penggantian. 
+- 
+random_state: Seed untuk pengambilan sampel acak agar 
+hasil konsisten. 
+Menangani missing value 
+Pandas 
+ΓùÅ 
+df.notnull(): Mengembalikan DataFrame atau Series boolean 
+yang menunjukkan nilai yang tidak kosong. 
+ΓùÅ 
+df.isnull(): Mengembalikan DataFrame atau Series boolean 
+yang menunjukkan nilai yang kosong (missing). 
+ΓùÅ 
+df.dropna(axis, how, thresh, subset, inplace) 
+ΓùÅ 
+df.fillna(value, method, axis, inplace, limit) 
+Dengan parameter yang dapat digunakan: 
+- 
+axis: 0 untuk menghapus baris, 1 untuk menghapus kolom. 
+- 
+how: Jika any, menghapus baris/kolom dengan setidaknya 
+satu nilai kosong. Jika all, menghapus baris/kolom dengan 
+semua nilai kosong. 
+- 
+thresh: Jumlah minimum nilai non-null yang diperlukan. 
+- 
+subset: Daftar kolom yang dipertimbangkan. 
+- 
+inplace: Jika True, perubahan dilakukan langsung pada 
+DataFrame. 
+- 
+value: Nilai untuk mengisi nilai kosong, bisa berupa scalar, 
+dictionary, atau DataFrame. 
+- 
+method: Metode pengisian, seperti ffill (forward fill) atau 
+bfill (backward fill). 
+- 
+limit: Jumlah maksimum nilai untuk mengisi. 
+ 
+ 
+ 
+ 
+
+
+--- Page 8 ---
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ΓùÅ 
+sns.heatmap(data,  cmap,  cbar,  yticklabels):  Membuat 
+heatmap untuk melihat distribusi nilai kosong dalam dataset. 
+Dengan parameter yang dapat digunakan: 
+- 
+data: Data yang akan divisualisasikan. 
+- 
+cmap: Skema warna untuk heatmap. 
+- 
+yticklabels: Menampilkan label sumbu y jika True. 
+Menangani missing value 
+Scikit-learn 
+ΓùÅ 
+KNNImputer(n_neighbors, weights, metric): Mengisi nilai 
+kosong berdasarkan K Nearest Neighbors. 
+ΓùÅ 
+imputer.fit_transform(X): Melakukan fitting 
+dan transformasi data dalam satu langkah. 
+Dengan parameter yang dapat digunakan: 
+- 
+n_neighbors: 
+Jumlah 
+tetangga 
+terdekat 
+untuk 
+dipertimbangkan saat mengisi. 
+- 
+weights: Jenis bobot yang digunakan untuk nilai tetangga 
+(uniform atau distance). 
+- 
+metric: Metode pengukuran jarak, default adalah 
+nan_euclidean. 
+- 
+X: Dataset yang akan difit dan ditransformasikan. 
+Data transformation 
+category_enco 
+ders 
+ΓùÅ 
+OneHotEncoder(): Mengubah kategori ke representasi biner. 
+ΓùÅ 
+BinaryEncoder(): 
+Mengubah 
+data 
+kategori 
+menjadi 
+representasi biner. 
+ΓùÅ 
+TargetEncoder(): Melakukan encoding berdasarkan target. 
+ 
+A. Data Understanding 
+1. Loading data 
+Sebelum melakukan tahapan data preprocessing, sangat penting untuk memahami 
+struktur, kualitas, dan karakteristik data yang kita miliki. Langkah pertama adalah 
+membaca data dari sumber seperti file CSV, Excel, database, atau API menggunakan 
+syntax berikut. 
+ 
+2. Menampilkan karakteristik data  
+Setelah data berhasil dibaca, diperlukan untuk melihat karakteristik data untuk memahami 
+bagaimana data itu disusun.  
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 9 ---
+ 
+ 
+ 
+ 
+ 
+Untuk memahami dataset secara umum, kita dapat menggunakan beberapa syntax dasar 
+seperti info() untuk melihat informasi dasar tentang tipe data dan jumlah data di setiap 
+kolom, head() dan tail() untuk melihat beberapa baris pertama dan terakhir yang dapat 
+membantu mengidentifikasi struktur dan format data, describe() untuk membantu 
+mendapat ringkasan statistik dari data numerik, seperti rata-rata, standar deviasi, nilai 
+maksimum, dan minimum. Berikut beberapa syntax yang dapat digunakan untuk 
+eksplorasi karakteristik data setelah data berhasil dibaca dengan Pandas.  
+ 
+Selain menggunakan df.describe(), untuk melihat statistik deskriptif dari dataset, Pandas 
+juga menyediakan syntax khusus untuk menghitung statistik berdasarkan ukuran yang 
+dipilih. Pemilihan ukuran statistik ini dapat dikategorikan berdasarkan jenis data. 
+a. Data nominal/biner terdiri dari kategori tanpa urutan, sehingga ukuran 
+yang dapat digunakan adalah modus. 
+b. Data ordinal memiliki kategori dengan urutan. Misalnya, tingkat pendidikan 
+(SD, SMP, SMA, Perguruan Tinggi). Ukuran yang dapat digunakan adalah 
+modus dan median. 
+c. Data interval dan rasio. Data interval dan rasio memiliki nilai numerik dan 
+dapat dihitung. Misalnya, suhu (data interval) atau berat (data rasio). Ukuran 
+yang dapat digunakan adalah mean, median, dan modus. 
+ 
+3.  Visualisasi data  
+Setelah memahami data secara mendasar, langkah selanjutnya adalah memahami distribusi 
+dan karakteristik lainnya melalui visualisasi data. Visualisasi ini sangat membantu untuk 
+mengidentifikasi pola, persebaran, dan masalah potensial seperti outlier. Visualisasi yang 
+digunakan bisa disesuaikan dengan tipe data dan tujuan analisis.  
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 10 ---
+ 
+ 
+ 
+ 
+ 
+a. Variabel kuantitatif  
+- 
+Histogram: Menyampaikan visualisasi mengenai nilai minimum dan maksimum, 
+lokasi pusat, penyebaran, dan juga pola yang dapat mempengaruhi analisis, seperti 
+skew/kemiringan. Data dibagi menjadi interval (bin), dan tinggi batang menunjukkan 
+jumlah data yang jatuh dalam setiap interval.  
+ 
+- 
+Boxplot: Menyampaikan visualisasi mengenai distribusi data melalui menyajikan 
+nilai minimum, maksimum, median, dan kuartil dari data. Titik di luar whiskers 
+boxplot menunjukkan outliers. 
+ 
+ 
+ 
+ 
+- 
+Line chart: Menunjukkan hubungan antara dua variabel, di mana satu variabel 
+biasanya adalah waktu dan yang lainnya adalah nilai numerik. Berfungsi untuk 
+analisis tren serta perbandingan antar variabel. 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 11 ---
+ 
+ 
+ 
+ 
+- 
+Scatter plot: Diagram yang menampilkan nilai dua atau lebih variabel numerik 
+dengan titik-titik menunjukkan hubungan antara kedua variabel tersebut. Berfungsi 
+untuk menunjukkan hubungan seperti korelasi positif, negatif, atau tidak ada. 
+Digunakan juga untuk visualisasi titik-titik yang jauh dari pola umum, yang mungkin 
+menjadi outlier. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 12 ---
+ 
+ 
+ 
+ 
+b.  Variabel kuantitatif  
+- 
+Bar plot: Menampilkan dan membandingkan frekuensi atau nilai antar kategori. 
+- 
+Pie chart: Menunjukkan kontribusi relatif setiap kategori terhadap total keseluruhan 
+ 
+ 
+B. Data Cleansing 
+Data cleansing, atau pembersihan data, adalah proses identifikasi dan perbaikan atau 
+penghapusan data yang tidak akurat, rusak, tidak lengkap, duplikat, atau tidak relevan dari 
+dataset. Proses ini sangat penting untuk memastikan data yang digunakan dalam analisis 
+akurat dan dapat diandalkan. Data cleansing melibatkan berbagai langkah, mulai dari 
+validasi data, koreksi kesalahan, penghapusan duplikasi, hingga pengisian data yang hilang. 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 13 ---
+ 
+ 
+ 
+ 
+1. Identifikasi dan penanganan data duplikat 
+Data duplikat terjadi ketika satu atau lebih baris dalam dataset muncul lebih dari sekali, 
+baik secara keseluruhan atau sebagian. Hal ini bisa disebabkan oleh kesalahan 
+penginputan, penggabungan dataset yang berbeda, atau penyalinan yang tidak disengaja. 
+Mengabaikan duplikat dapat mengakibatkan bias,  karena data yang berulang akan 
+memberi bobot lebih besar terhadap pola tertentu yang mungkin tidak merepresentasikan 
+keseluruhan dataset dengan benar. 
+ 
+Pendekatan di atas menggunakan library Pandas di Python untuk identifikasi data 
+duplikat dengan beberapa metode sebagai berikut. 
+a. duplicated().sum(): menghitung jumlah baris yang memiliki nilai duplikat 
+b. duplicated(): mengidentifikasi baris-baris yang diduplikasi dalam sebuah dataframe. 
+c. drop_duplicates(): fungsi ini digunakan untuk menghapus baris yang merupakan 
+duplikat dari dataframe. 
+ 
+2. Penanganan data inkonsisten 
+Data tidak konsisten terjadi ketika ada variasi dalam pengisian data yang merujuk pada 
+hal yang sama. Misalnya, jika ada nilai yang seharusnya sama tetapi ditulis dengan format 
+yang berbeda, seperti "Yes", "yes", "YES", atau "No", "N", dan "no". Inkonsistensi ini 
+dapat menghambat analisis atau agregasi karena komputer menganggap nilai yang 
+berbeda sebagai entitas terpisah, meskipun secara logika artinya sama. 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 14 ---
+ 
+ 
+ 
+ 
+Pendekatan di atas menggunakan library Pandas di Python dengan teknik seperti 
+lowercasing (mengubah seluruh teks menjadi huruf kecil), atau standarisasi entri dengan 
+mengganti variasi format yang berbeda dengan fungsi replace() atau map(). 
+ 
+3. Mengoreksi nilai yang tidak valid 
+Invalid values adalah data yang tidak sesuai dengan ekspektasi atau aturan tertentu. 
+Misalnya, dalam dataset demografi, usia yang bernilai negatif atau lebih dari 150 tahun 
+akan dianggap tidak valid. Invalid values sering kali muncul akibat kesalahan input data 
+atau data yang hilang yang tidak terkelola dengan baik. 
+Pendekatan di atas membutuhkan identifikasi nilai yang masuk akal berdasarkan logika. 
+Setelah diidentifikasi, invalid values dapat diganti dengan nilai None/NaN. Nilai tidak 
+valid ini juga dapat dihapus, atau diganti dengan nilai yang lebih sesuai menggunakan 
+mean, median, dan sebagainya. 
+ 
+ 
+ 
+ 
+
+
+--- Page 15 ---
+ 
+ 
+ 
+ 
+ 
+4. Noisy data / Outlier 
+ 
+Noisy data adalah data yang mengandung kesalahan atau variabilitas yang tidak dapat 
+dijelaskan oleh pola yang diharapkan. Sumber noise bisa datang dari kesalahan 
+pengukuran, pengambilan data yang buruk, atau faktor acak lainnya. Dalam dunia data, 
+outlier (nilai ekstrem) juga dapat dianggap sebagai bagian dari noisy data. Terdapat 
+beberapa cara dalam mengidentifikasi keberadaan outlier pada dataset, di antaranya: 
+a. Boxplot 
+Boxplot adalah salah satu cara visual yang efektif untuk mendeteksi outliers. 
+Outliers ditandai sebagai titik-titik di luar whisker (garis) pada boxplot. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 16 ---
+ 
+ 
+ 
+ 
+ 
+b. Z-Score 
+Z-score adalah metode statistik yang menunjukkan seberapa jauh suatu nilai dari 
+mean dalam satuan standar deviasi. Outliers umumnya dianggap sebagai nilai 
+dengan z-score > 3 atau < -3. 
+ 
+c. Interquartile Range (IQR) 
+IQR adalah metode yang populer untuk mendeteksi outliers. IQR dihitung dengan 
+mengurangi kuartil pertama (Q1) dari kuartil ketiga (Q3). Nilai yang berada di luar 
+Q1 - 1.5 * IQR atau Q3 + 1.5 * IQR dianggap sebagai outliers. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 17 ---
+ 
+ 
+ 
+Kemudian, outlier yang telah diidentifikasi dapat ditangani dengan beberapa 
+pendekatan, seperti: 
+a. Menghapus outliers apabila disebabkan oleh kesalahan entri data atau data tidak 
+relevan dengan analisis. Berikut merupakan contoh penghapusan outlier 
+berdasarkan Z-Score:  
+df_cleaned = df[df['z_score'] <= 3] 
+b. Mengganti outliers dengan nilai yang lebih masuk akal, misalnya nilai batas IQR atau 
+nilai median. 
+c. Melakukan transformasi data 
+ 
+C. Data Reduction 
+Reduksi data adalah proses mengurangi volume atau dimensi data dengan tetap 
+mempertahankan integritas dan informasi penting. Teknik data reduction dapat diterapkan 
+untuk memperoleh representasi tereduksi dari kumpulan data yang volumenya jauh lebih 
+kecil, namun tetap menjaga integritas data asli. Penambangan pada kumpulan data yang 
+dikurangi harus lebih efisien namun menghasilkan hasil analisis yang sama (atau hampir 
+sama). 
+1. Dimensionality reduction 
+Reduksi dimensi adalah teknik untuk mengurangi jumlah fitur atau variabel dalam 
+dataset dengan tetap mempertahankan sebagian besar informasi. Pengurangan dimensi 
+kumpulan data mempunyai beberapa manfaat: 
+- 
+Mengurangi waktu pelatihan, mengurangi kebutuhan memori dan meningkatkan 
+kinerja algoritma machine learning 
+- 
+Menghilangkan atribut yang tidak relevan dan mengurangi jumlah atribut yang bising 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 18 ---
+ 
+ 
+ 
+ 
+- 
+Membuat visualisasi data lebih mudah dipahami dan memungkinkan visualisasi 
+kumpulan data dengan jumlah atribut yang tinggi 
+Teknik yang biasa digunakan: 
+a. Principal Component Analysis (PCA) yaitu mengubah data ke dalam set komponen 
+utama yang tidak berkorelasi dan mempertahankan variasi maksimum dalam data 
+dengan komponen yang lebih sedikit. Contoh penggunaan pada teknik PCA dapat 
+dilihat pada gambar dibawah ini. 
+ 
+ 
+b. Independent Component Analysis (ICA) 
+ 
+Independent Component Analysis (ICA) adalah teknik untuk memisahkan data 
+multivariat menjadi komponen-komponen yang independen secara statistik. Dapat 
+dilihat contoh pada gambar diatas menunjukkan tiga orang yang sedang berbicara ke 
+mikrofon dan tiap individunya mewakili sebuah sumber suara yang independen.  
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 19 ---
+ 
+ 
+ 
+ 
+Suara dari ketiga orang tersebut terekam dalam satu rekaman yang sama (Mixed 
+Signal) yang dimana suara dari ketiga sumber saling tumpang tindih dan sulit 
+dibedakan. Sinyal campuran ini kemudian diproses menggunakan ICA yang bekerja 
+dengan mencari komponen-komponen statistik yang paling tidak berkorelasi satu 
+sama lain, sehingga dapat memisahkan suara dari sumber yang berbeda. Setelah 
+melalui proses ICA, sinyal campuran berhasil dipisahkan menjadi tiga sinyal sumber 
+yang independen. 
+c. Multidimensional Scalling (MDS) adalah sebuah teknik analisis statistik multivariat 
+yang digunakan untuk menggambarkan struktur hubungan antar objek data 
+berdasarkan kemiripannya secara grafis dalam suatu bidang multidimensi, untuk 
+mendapatkan informasi dari data. 
+2. Numerosity Reduction 
+Teknik ini mengurangi volume data dengan mengganti data asli dengan representasi yang 
+lebih kecil. Metode-metodenya meliputi: 
+a. Clustering adalah proses mengelompokkan data menjadi beberapa kelompok 
+berdasarkan kesamaan. Contoh clustering dapat dilihat pada gambar dibawah ini. 
+ 
+b. Sampling adalah teknik mengambil sebagian kecil data sebagai representasi dari 
+seluruh data 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 20 ---
+ 
+ 
+ 
+ 
+ 
+Pada contoh kode diatas menghasilkan 1000 data acak dengan dua fitur yang 
+berbeda, kemudian mengambil sampel data sebesar 10% dari data tersebut secara 
+acak dari keseluruhan data. 
+D. Handling Missing Value 
+Missing values merujuk pada kondisi dimana data untuk atribut tertentu tidak tersedia. 
+Penyebab Missing Values diantara lain : 
+- 
+Kesalahan pengumpulan atau input data 
+- 
+Nilai atribut tidak diketahui 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 21 ---
+ 
+ 
+ 
+ 
+- 
+Atribut tidak diperlukan untuk objek tertentu 
+- 
+Adanya penghapusan outlier atau data tidak valid 
+- 
+Programming error 
+- 
+Data hilang saat transfer data secara manual dari legalcy database. 
+1. Detecting missing values 
+Proses detecting missing values data dilakukan dengan metode isnull(), notnull() dan 
+info() 
+ΓùÅ Mengecek nilai null 
+isnull() dapat mendeteksi adanya missing atau null pada dataset serta dapat 
+mengembalikan sebuah boolean mask, dimana kondisi ΓÇÿTrueΓÇÖ menunjukkan adanya 
+missing value dan ΓÇÿfalseΓÇÖ menunjukan non-missing value. notnull() memiliki cara 
+kerja yang sama hanya saja kondisi ΓÇÿFalseΓÇÖ menunjukkan adanya missing value dan 
+ΓÇÿTrueΓÇÖ menunjukan non-missing value. 
+ΓùÅ Mengecek informasi data 
+info() dapat menampilkan jumlah total baris, jumlah non-null (non-missing values), 
+dan tipe data untuk setiap kolom. 
+ 
+ΓùÅ Visualisasi missing data menggunakan heatmap 
+Memilih untuk menggunakan heatmap bergantung pada kebutuhan dan sifat dataset.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 22 ---
+ 
+ 
+ 
+ 
+Heatmap paling efektif untuk data numerik kontinu atau diskrit, serta data kategorikal yang 
+telah diringkas. Namun, jika ada pencilan ekstrem atau data yang sangat jarang, heatmap 
+mungkin memerlukan preprocessing atau normalisasi 
+ 
+ 
+2. Types Of Missing Value 
+a. MCAR - Missing completely at random 
+Terjadi jika semua variabels dan observations memiliki probabilitas yang sama untuk hilang 
+b. MAR - Missing at random 
+Probabilitas hilangnya suatu value berkaitan dengan value dari variabel itu sendiri atau 
+variabel lain dalam dataset. Sehingga tidak semua observations dan variabels memiliki 
+peluang yang sama untuk hilang. 
+c. MNAR - Missing not at random 
+ MNAR adalah tipe ketika MAR atau MCAR tidak berlaku. Dalam situasi ini, probabilitas 
+hilangnya data, berbeda-beda untuk setiap value dari variabel yang sama, dan alasan di balik 
+hal ini bisa jadi tidak diketahui 
+3. Missing Value Handling 
+Terdapat beberapa teknik dalam mengatasi missing values yaitu dengan menghapus data 
+yang hilang, imputation nilai rata-rata, median, modus dari variabel terkait, atau dapat 
+juga menggunakan advanced imputation. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 23 ---
+ 
+ 
+ 
+ 
+ 
+ 
+a. Menghapus data dengan dropna() 
+Teknik dasar dalam mengatasi missing value adala dengan menghapus data yang 
+hilang tersebut. Dapat dilakukan dengan cara menghapus baris atau seluruh kolom 
+yang tidak memiliki nilai (missing value) 
+ 
+ 
+b. Mengganti nilai pada missing values 
+Fungsi `fillna()` dalam pandas digunakan untuk mengganti nilai yang hilang dengan 
+nilai tertentu. Contohnya, kita dapat mengganti nilai yang hilang dengan rata-rata 
+kolom menggunakan `df.mean()`, yang berguna untuk data numerik.Menggunakan 
+rata-rata untuk imputasi bisa menimbulkan bias jika tidak mencerminkan distribusi 
+data 
+yang 
+sebenarnya. 
+Sebagai 
+alternatif, 
+dapat 
+menggunakan 
+median 
+(`df.median()`), 
+yang 
+lebih 
+stabil 
+terhadap 
+pencilan, 
+atau 
+modus 
+(`df.mode().iloc[0]`), yaitu nilai yang paling sering muncul dalam data. 
+ 
+ 
+ 
+4. Advance Imputation (KKN imputation) 
+Teknik berikutnya adalah menggunakan metode imputasi yang lebih kompleks, seperti 
+K-Nearest Neighbors (KNN) atau Regresi.  
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 24 ---
+ 
+ 
+ 
+ 
+ 
+Metode ini lebih cepat dalam mempertimbangkan nilai-nilai lain di dataset untuk 
+mengestimasi missing values, sehingga hasilnya bisa lebih akurat. 
+ 
+E. Data Transformation 
+Transformasi data adalah langkah penting dalam tahap sebelum pemrosesan data yang 
+bertujuan untuk mengubah data mentah menjadi format yang sesuai untuk analisis. Tujuan 
+utama dari transformasi data adalah untuk meningkatkan kualitas dan efisiensi interpretasi 
+data, pemodelan, dan prediksi. Beberapa langkah utama dalam transformasi data meliputi: 
+a. Data Encoding 
+Data encoding adalah langkah penting dalam pra-pemrosesan data di Machine Learning. 
+Proses ini mengubah data kategorikal atau teks menjadi format numerik, sehingga dapat 
+digunakan sebagai input oleh algoritma machine learning. 
+Kenapa menggunakan Data Encoding? 
+ΓùÅ Sebagian besar algoritma machine learning hanya dapat bekerja dengan data 
+numerik, sehingga variabel kategorikal perlu diubah menjadi nilai numerik. 
+ΓùÅ Encoding membantu model mengenali pola dalam data dan membuat prediksi 
+berdasarkan pola tersebut. 
+ΓùÅ Encoding juga mencegah bias dalam model dengan memastikan semua fitur 
+memiliki bobot yang setara. 
+ΓùÅ Pemilihan metode encoding yang tepat dapat mempengaruhi kinerja model secara 
+signifikan. 
+Metode yang dapat diterapkan untuk melakukan encoding pada variabel/atribut 
+kategorikal meliputi: One-Hot Encoding, Dummy Encoding, Ordinal Encoding, Binary 
+Encoding, Count Encoding, dan Target Encoding. 
+Studi Kasus: 
+ 
+ 
+ 
+ 
+ 
+ 
+Terdapat dataset tentang pelanggan yang berisi informasi tentang jenis kelamin dan kota 
+tempat tinggal. Variabel-variabel tersebut adalah kategorikal dan perlu di-encode 
+menjadi bentuk numerik sebelum dapat digunakan dalam model machine learning. 
+ΓêÆ Nama: Alice, Bob, Charlie, David, Eva 
+ΓêÆ Jenis Kelamin: Perempuan, Laki-laki, Laki-laki, Laki-laki, Perempuan 
+ΓêÆ Kota: Jakarta, Bandung, Jakarta, Surabaya, Bandung 
+
+
+--- Page 25 ---
+ 
+ 
+ 
+ 
+ 
+Contoh Penggunaan: 
+ 
+Output: 
+ 
+ 
+Penjelasan: 
+- 
+Pada studi kasus ini, metode One-Hot Encoding diterapkan dengan membuat 
+kolom biner untuk setiap kategori unik dalam variabel Jenis Kelamin dan Kota. 
+- 
+Pada kolom Jenis_Kelamin, jika pelanggan adalah "Laki-laki", maka kolom 
+Jenis_Kelamin_Laki-laki 
+akan 
+bernilai 
+1, 
+dan 
+kolom 
+Jenis_Kelamin_Perempuan akan bernilai 0 (dan sebaliknya). 
+- 
+Pada kolom Kota, setiap kota juga diwakili oleh kolom biner, di mana 1 
+menunjukkan bahwa pelanggan tinggal di kota tersebut. 
+b. Agregasi 
+Agregasi adalah proses menyederhanakan data dengan menggabungkan beberapa nilai 
+atau data menjadi satu nilai yang representatif. Proses ini sering digunakan dalam analisis 
+data skala besar untuk membantu kita memahami pola dan tren dalam data dengan lebih 
+jelas.  
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 26 ---
+ 
+ 
+ 
+ 
+ 
+Teknik agregasi yang umum meliputi menghitung rata-rata, jumlah, nilai maksimum, 
+nilai minimum, dan banyak lagi. 
+Contoh Penggunaan: 
+ΓùÅ Menghitung Rata-Rata Penjualan: Jika kita memiliki data penjualan harian untuk 
+beberapa produk, kita bisa menghitung rata-rata penjualan per bulan untuk melihat 
+tren penjualan. 
+ΓùÅ Menjumlahkan Pendapatan: Dalam laporan keuangan, kita sering kali 
+menjumlahkan pendapatan dari berbagai sumber untuk mendapatkan total 
+pendapatan perusahaan. 
+ΓùÅ Mengelompokkan Data: Ketika menganalisis data pelanggan, kita bisa 
+mengelompokkan mereka berdasarkan usia atau lokasi dan kemudian menghitung 
+rata-rata pengeluaran per kelompok. 
+Studi Kasus: 
+ 
+Contoh Penggunaan: 
+ 
+ 
+ 
+Untuk studi kasus ini, akan digunakan dataset yang berisi informasi tentang penjualan 
+harian beberapa produk selama bulan September 2024. Dataset ini memiliki tiga kolom 
+utama: 
+Produk = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D'] 
+Tanggal = ['2024-09-01', '2024-09-02', '2024-09-01', '2024-09-02', '2024-09-01', '2024-09-02', 
+'2024-09-01', '2024-09-02'] 
+Jumlah Penjualan = [10, 15, 5, 10, 8, 12, 20, 30] 
+Dalam studi kasus ini, tujuan kita adalah untuk menghitung total penjualan untuk 
+setiap produk selama periode yang ditentukan (dua hari dalam dataset). 
+
+
+--- Page 27 ---
+ 
+ 
+ 
+ 
+ 
+Output: 
+ 
+c. Normalization (min-max) 
+Normalisasi adalah proses yang bertujuan untuk mengubah data ke dalam rentang atau 
+skala tertentu agar lebih mudah dianalisis dan dibandingkan. Normalisasi penting dalam 
+banyak aplikasi analisis data, terutama ketika bekerja dengan algoritma yang sensitif 
+terhadap skala data, seperti algoritma pembelajaran mesin. Teknik normalisasi yang 
+paling umum adalah Min-Max Scaler. 
+ΓùÅ Min-Max Scaler 
+Min-Max Scaler mengubah nilai data menjadi rentang baru, biasanya dari 0 hingga 
+1. Ini berguna ketika kita ingin memastikan semua fitur memiliki skala yang sama. 
+Rumus: 
+ 
+Dimana: 
+- 
+≡¥æÑ adalah nilai asli data. 
+- 
+(≡¥æÑ) adalah nilai minimum dalam dataset. 
+- 
+(≡¥æÑ) adalah nilai maksimum dalam dataset. 
+- 
+≡¥æÑ adalah nilai data yang telah dinormalisasi. 
+Studi Kasus: 
+ 
+ 
+ 
+ 
+ 
+ 
+Misalkan kita memiliki dataset yang berisi nilai tinggi badan dalam cm dari 
+beberapa individu: 
+≡¥æç≡¥æû≡¥æ¢≡¥æö≡¥æö≡¥æû ≡¥É╡≡¥æÄ≡¥ææ≡¥æÄ≡¥æ¢: [150, 160, 170, 180, 190] 
+
+
+--- Page 28 ---
+ 
+ 
+ 
+ 
+Contoh Penggunaan: 
+Output: 
+ 
+- 
+Tinggi_Badan_Normalized: Nilai tinggi badan yang dinormalisasi menggunakan Min-Max 
+Normalization, yang akan berada dalam rentang 0 hingga 1. 
+d. Standardization (Z-score) 
+Standardization yang biasanya menggunakan metode Z-Score adalah teknik yang 
+menskalakan data berdasarkan distribusi statistiknya, yakni rata-rata (mean) dan deviasi 
+standar. Nilai hasil Z-Score menunjukkan seberapa jauh sebuah data dari rata-rata dalam 
+satuan deviasi standar. Teknik ini sering digunakan ketika kita ingin membandingkan 
+data dalam distribusi normal atau untuk analisis statistik. 
+Rumus : 
+- 
+≡¥æÑ adalah nilai asli data. 
+- 
+ ╬╝ adalah rata-rata dari data. 
+- 
+ ╧â adalah deviasi standar dari data. 
+- 
+ ≡¥æº adalah nilai yang telah di standardisasi dalam bentuk Z-Score 
+Contoh Penggunaan: 
+((Menggunakan studi kasus yang sama dengan Min-Max Scaler)) 
+ 
+ 
+ 
+
+
+--- Page 29 ---
+ 
+ 
+ 
+ 
+Output: 
+- 
+Tinggi_Badan_ZScore: Nilai tinggi badan yang dinormalisasi menggunakan Z-Score 
+Normalization, yang menunjukkan seberapa banyak setiap nilai deviasi dari rata-rata. 
+e. Discretization 
+Discretization adalah proses mengubah data kontinu menjadi data diskrit dengan cara 
+membagi data ke dalam interval tertentu. Proses ini sering digunakan dalam analisis data 
+dan pemodelan untuk mengurangi kompleksitas data, serta membuatnya lebih mudah 
+diinterpretasikan. Discretization membantu dalam mengelompokkan nilai-nilai yang 
+mendekati satu sama lain ke dalam kategori yang sama. 
+Studi Kasus: 
+Contoh Penggunaan: 
+ 
+Output: 
+ 
+ 
+ 
+Terdapat dataset yang berisi informasi tentang pendapatan individu dalam 
+dolar. Akan dilakukan pengelompokan data pendapatan ke dalam beberapa 
+kategori: "Rendah", "Sedang", dan "Tinggi". 
+Pendapatan = [20000, 35000, 50000, 75000, 100000, 150000, 
+]
+
+
+--- Page 30 ---
+ 
+ 
+ 
+ 
+SUMBER 
+https://www.codecademy.com/article/eda-data-visualization 
+https://medium.com/aiskunks/categorical-data-encoding-techniques-
+d629669740f https://www.datacamp.com/tutorial/techniques-to-handle-missing-
+data-values 
+https://towardsdatascience.com/missing-value-imputation-explained-a-visual-guide-with-code-
+exampl es-for-beginners-93e0726284eb 
+https://machinelearningtutorials.org/pandas-isnull-function-explained-with-examples/ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+================================================================================
+FILE: [IDN] Modul 2 - Pemodelan Data (1).pdf
+================================================================================
+
+--- Page 4 ---
+ 
+ 
+DAFTAR ISI 
+PENDAHULUAN.....................................................................................................................6 
+SPLIT DATA...........................................................................................................................11 
+EVALUASI MODEL..............................................................................................................13 
+A. Evaluasi Model Regresi.................................................................................................13 
+1. Mean Squared Error (MSE)..................................................................................... 13 
+2. R-Squared atau R2 Score......................................................................................... 13 
+B. Evaluasi Model Klasifikasi............................................................................................14 
+1. Accuracy...................................................................................................................14 
+2. Confusion Matrix..................................................................................................... 15 
+3. Classification Report................................................................................................17 
+C. Evaluasi Model Clustering............................................................................................ 18 
+1. Metriks Evaluasi Internal......................................................................................... 19 
+2. Metrik Evaluasi Eksternal........................................................................................ 21 
+OVERFITTING & UNDERFITTING.................................................................................22 
+A. Overfitting..................................................................................................................... 22 
+B. Underfitting................................................................................................................... 23 
+TUNING MODEL OPTIMATION...................................................................................... 24 
+A. Linear Regression Hyperparameters............................................................................. 24 
+B. Lasso Regression........................................................................................................... 25 
+C. Logistik Regression Hyperparameters...........................................................................25 
+D. K-Means Clustering...................................................................................................... 27 
+E. DBSCAN (Density-Based Spatial Clustering of Applications with Noise)..................28 
+F. Hierarchical Clustering...................................................................................................29 
+K-FOLD CROSS VALIDATION..........................................................................................31 
+A. Definisi K-Fold Cross
+
+--- Page 5 ---
+ 
+ 
+GRIDSEARCHCV.................................................................................................................34 
+A. Definisi GridSearchCV................................................................................................. 34 
+B. Implementasi GridSearchCV pada Regression............................................................. 35 
+C. Implementasi GridSearchCV pada Clustering.............................................................. 37 
+REGRESI................................................................................................................................42 
+A. Analisis Statistik (Statistical Analysis)......................................................................... 42 
+B. Linear Regression..........................................................................................................44 
+C. Logistic Regression....................................................................................................... 48 
+D. Lasso Regression...........................................................................................................51 
+CLUSTERING....................................................................................................................... 55 
+A. Hierarchical Clustering..................................................................................................55 
+a. AGNES (Agglomerative Nesting)............................................................................55 
+b. DIANA (Divisive Analysis).....................................................................................62 
+B. Partitional Clustering.....................................................................................................63 
+a. K-Means................................................................................................................... 63 
+C. Density-Based Clustering..............................................................................................71 
+a. DBSCAN (Density-Based Spatial Clustering of Application with Noise).............. 71 
+REFERENSI...........................................................................................................................80 
+ 
+
+
+--- Page 6 ---
+ 
+PENDAHULUAN 
+A.ΓÇï Machine Learning 
+Pemodelan data adalah suatu model atau pola yang menangkap keteraturan dalam data. Tahap 
+pemodelan adalah tempat utama di mana teknik data mining diterapkan pada data. Penting 
+untuk memiliki pemahaman tentang ide-ide dasar data mining, termasuk jenis-jenis teknik 
+dan algoritma yang ada. 
+ 
+Pada praktikum kali ini kita akan memahami lebih dalam tentang apa itu machine learning. 
+Machine learning adalah cabang dari kecerdasan buatan yang memungkinkan algoritma 
+untuk menemukan pola tersembunyi dalam dataset, sehingga dapat membuat prediksi pada 
+data baru yang serupa tanpa perlu diprogram secara eksplisit untuk setiap tugas. Machine 
+learning tradisional menggabungkan data dengan alat statistik untuk memprediksi hasil, 
+menghasilkan wawasan yang dapat ditindaklanjuti. Teknologi ini memiliki aplikasi di 
+berbagai bidang, seperti pengenalan gambar dan suara, pemrosesan bahasa alami, sistem 
+rekomendasi, deteksi penipuan, optimisasi portofolio, dan otomatisasi tugas. 
+Sebagai contoh: 
+Sistem 
+rekomendasi 
+menggunakan 
+data historis untuk memberikan saran yang 
+dipersonalisasi. Netflix, misalnya, menggunakan collaborative dan content-based filtering 
+untuk merekomendasikan film dan acara TV berdasarkan riwayat tontonan pengguna, 
+peringkat, dan preferensi genre. 
+ 
+
+
+--- Page 7 ---
+ 
+ 
+B.ΓÇï Pendekatan dalam Machine Learning 
+ 
+Berdasarkan pendekatannya, Machine learning dibagi menjadi 3 bagian besar 
+diantaranya adalah sebagai berikut: 
+1.ΓÇï
+Supervised learning 
+Supervised learning adalah jenis machine learning di mana algoritma dilatih 
+menggunakan dataset yang telah diberi label. Model belajar untuk memetakan fitur 
+input ke output target berdasarkan data pelatihan yang sudah dilabeli. Tujuan utama 
+supervised learning adalah membuat model yang mampu menggeneralisasi dari data 
+pelatihan sehingga dapat memprediksi hasil pada data baru yang belum pernah 
+dilihat sebelumnya. Supervised learning dibagi menjadi dua bagian, yaitu: 
+a.ΓÇï Regresi: Model mempelajari untuk memprediksi nilai kontinu berdasarkan fitur 
+input. Contohnya meliputi prediksi harga rumah atau harga saham. Algoritma 
+yang sering digunakan mencakup Linear Regression, Logistic Regression, 
+Polynomial Regression, Support Vector Regression, dan lainnya.  
+b.ΓÇï Klasifikasi: Model mempelajari untuk mengelompokkan data ke dalam kategori 
+tertentu. Algoritma ini menghasilkan output berupa nilai diskrit, seperti 
+mengklasifikasikan email sebagai spam atau bukan. Algoritma yang umum 
+digunakan termasuk Logistic Regression, Decision Tree, K-Nearest 
+Neighbors (KNN), dan Support Vector Machine (SVM). 
+ 
+ 
+
+
+--- Page 8 ---
+ 
+ 
+2.ΓÇï
+Unsupervised Learning 
+Unsupervised learning adalah jenis machine learning di mana algoritma mempelajari 
+pola dalam data tanpa bantuan label atau output target. Tujuan dari metode ini 
+adalah menemukan struktur atau distribusi tersembunyi dalam data. Unsupervised 
+Learning dibagi menjadi dua bagian, yaitu: 
+a.ΓÇï Clustering: Algoritma mengelompokkan data menjadi kelompok-kelompok 
+berdasarkan karakteristik yang serupa. Algoritma populer dalam kategori ini 
+termasuk K-Means, Hierarchical Clustering, dan DBSCAN. 
+b.ΓÇï Dimensionality Reduction: Algoritma ini mengurangi jumlah variabel input 
+dalam dataset sambil tetap mempertahankan informasi penting. Contohnya 
+meliputi Principal Component Analysis (PCA) dan t-SNE. 
+3.ΓÇï
+Reinforcement Learning 
+Reinforcement learning adalah jenis machine learning di mana agen belajar 
+berinteraksi dengan lingkungan melalui tindakan dan menerima umpan balik dalam 
+bentuk reward atau penalti. Tujuan reinforcement learning adalah mempelajari 
+kebijakan (policy) yang memetakan keadaan ke tindakan yang memaksimalkan 
+reward kumulatif. Reinforcement learning dibagi menjadi dua bagian, yaitu; 
+a.ΓÇï Model-based Reinforcement Learning: Agen mempelajari model dari 
+lingkungan yang mencakup probabilitas transisi antar keadaan dan reward yang 
+terkait dengan setiap pasangan keadaan-tindakan. Algoritma seperti Value 
+Iteration dan Policy Iteration digunakan dalam kategori ini. 
+b.ΓÇï Model-free Reinforcement Learning: Agen mempelajari kebijakan langsung 
+dari pengalaman tanpa membangun model eksplisit dari lingkungan. Algoritma 
+populer meliputi Q-Learning, SARSA, dan Deep Reinforcement Learning. 
+ 
+Pada praktikum kali ini kita akan mengenal lebih dalam terkait Regression Learning dan 
+Clustering learning dengan fokus model Logistic Regression dan K-Means. 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 9 ---
+ 
+ 
+C.ΓÇï Alur Sederhana Implementasi Machine Learning 
+ 
+1.ΓÇï
+Data Collecting 
+Mengumpulkan data relevan sebagai dasar pelatihan model. Data bisa didapat dari 
+berbagai sumber, seperti database atau API. 
+2.ΓÇï
+Exploratory Data Analysis 
+Menganalisis data untuk memahami karakteristiknya, mencari pola, dan mendeteksi 
+anomali. Tahap ini memberi wawasan awal. 
+3.ΓÇï
+Data Selection 
+Pemilihan fitur adalah tahap dalam pipeline machine learning di mana fitur-fitur 
+yang paling relevan dipilih berdasarkan tujuan bisnis dan karakteristik data yang 
+telah dianalisis. Hal ini bisa mempertimbangka 
+1)ΓÇïAnalisis Hubungan Fitur dengan Target (Analisis Korelasi / Chi-Square) 
+2)ΓÇïEvaluasi Berdasarkan Tujuan Bisnis 
+4.ΓÇï
+Data Preprocessing 
+Mengolah data agar siap digunakan, termasuk menangani nilai hilang, normalisasi, 
+encoding, dan membagi dataset menjadi data latih, uji, dan validasi. 
+5.ΓÇï
+Model Training 
+Melatih model menggunakan data latih untuk menemukan hubungan antara fitur dan 
+target. 
+ 
+
+
+--- Page 10 ---
+ 
+ 
+6.ΓÇï
+Model Evaluation 
+Mengevaluasi performa model dengan data uji atau validasi untuk memastikan 
+model bisa memprediksi data baru dengan baik. 
+7.ΓÇï
+Deployment 
+Menerapkan model ke lingkungan produksi sehingga bisa digunakan untuk prediksi 
+oleh sistem atau pengguna. 
+8.ΓÇï
+Monitoring 
+Memantau kinerja model dan melakukan penyesuaian jika diperlukan agar 
+performanya tetap optimal.
+ 
+
+
+--- Page 11 ---
+ 
+SPLIT DATA 
+Sebelum melatih model, penting untuk membagi dataset menjadi beberapa bagian guna 
+mengevaluasi kinerja model secara objektif. Tujuannya adalah memastikan model tidak 
+hanya efektif pada data pelatihan, tetapi juga dapat memprediksi dengan baik pada data yang 
+belum pernah dilihat sebelumnya. Tidak ada aturan khusus dalam membagi dataset namun 
+umumnya perbandingan yang dilakukan adalah 70-80% untuk data latih, 10-20% untuk data 
+validasi (jika digunakan), dan 10-20% untuk data uji. 
+ 
+ 
+a.ΓÇï Training Set (Data Latih) 
+Sebagian besar dataset digunakan untuk melatih model, di mana model "belajar" untuk 
+mengidentifikasi pola dan hubungan antara variabel input dan output. Biasanya, 70-80% 
+dari dataset dialokasikan untuk data latih. 
+b.ΓÇï Test Set (Data Uji) 
+Sekitar 20-30% dari dataset digunakan sebagai data uji. Setelah pelatihan selesai, data uji 
+digunakan untuk mengevaluasi kemampuan model dalam membuat prediksi yang akurat 
+pada data yang belum pernah dilihat sebelumnya. Evaluasi ini menunjukkan sejauh mana 
+model akan bekerja di kondisi nyata. 
+ 
+ 
+
+
+--- Page 12 ---
+ 
+ 
+c.ΓÇï
+Validation Set (Opsional) 
+Sekitar 20-30% dari dataset digunakan sebagai data uji. Setelah pelatihan selesai, data uji 
+digunakan untuk mengevaluasi kemampuan model dalam membuat prediksi yang akurat 
+pada data yang belum pernah dilihat sebelumnya. Evaluasi ini menunjukkan sejauh mana 
+model akan bekerja di kondisi nyata. Berikut adalah contoh penerapan Split Data. Jika X 
+dan Y sudah ada, X adalah Fitur dan Y adalah target. 
+ 
+a.ΓÇï
+Split data (Train & Test) 80%-20% 
+ 
+b.ΓÇï Split data (Train, Test & Validation) 72 % Train, 8% Validation, 20% Test 
+ 
+ 
+ 
+
+
+--- Page 13 ---
+ 
+EVALUASI MODEL 
+A.ΓÇï Evaluasi Model Regresi 
+1.ΓÇï
+Mean Squared Error (MSE) 
+Mean squared error merupakan metrik evaluasi yang digunakan untuk mengukur 
+selisih kuadrat rata-rata antara nilai prediksi dan nilai target aktual dalam suatu 
+kumpulan data. MSE menghitung selisih antara nilai prediksi model dan nilai 
+sebenarnya dari data untuk melihat kesalahan, kemudian mengkuadratkan selisih 
+tersebut agar tidak ada selisih yang bernilai negatif. Kemudian, selisih kuadrat 
+dijumlahkan dan diambil rata-rata dari semua sampel data. Contoh implementasi 
+MSE adalah sebagai berikut. 
+ 
+Parameter dalam metrik evaluasi mean squared error adalah sebagai berikut. 
+Parameters 
+Descriptions 
+y_test 
+Menunjukkan label kebenaran dasar (ground truth) 
+y_pred 
+Menunjukkan label yang diprediksi, seperti yang dihasilkan dari 
+hasil klasifikasi 
+ 
+2.ΓÇï
+R-Squared atau R2 Score 
+R-Squared yang disebut juga koefisien determinasi merupakan metrik evaluasi yang 
+digunakan untuk mengukur seberapa baik data yang diprediksi sesuai dengan data 
+sebenarnya dari sekumpulan data. Rentang skor R2 berkisar antara 0 hingga 1 
+dengan skor yang mendekati 1 menunjukkan model yang lebih baik. Tujuan dari 
+evaluasi ini adalah untuk mengetahui seberapa besar variasi yang dilihat dari varians  
+
+
+--- Page 14 ---
+ 
+ 
+dalam data yang dapat dijelaskan oleh model. Contoh implementasi R-Squared 
+adalah sebagai berikut. 
+ 
+Parameter dalam metrik evaluasi R-Sqaured adalah sebagai berikut. 
+Parameters 
+Descriptions 
+y_test 
+Menunjukkan label kebenaran dasar (ground truth) 
+y_pred 
+Menunjukkan label yang diprediksi, seperti yang dihasilkan dari 
+hasil klasifikasi 
+ 
+B.ΓÇï Evaluasi Model Klasifikasi 
+1.ΓÇï
+Accuracy 
+Accuracy adalah metrik yang mengukur seberapa sering model machine learning 
+memprediksi hasil dengan benar. Akurasi dapat dihitung dengan membagi jumlah 
+prediksi yang benar dengan jumlah total prediksi. Contoh implementasi untuk 
+menghitung skor akurasi adalah sebagai berikut. 
+ 
+
+
+--- Page 15 ---
+ 
+ 
+Parameter dalam evaluasi akurasi adalah sebagai berikut. 
+Parameters 
+Descriptions 
+y_test 
+Menunjukkan label kebenaran dasar (ground truth) 
+y_pred 
+Menunjukkan label yang diprediksi, seperti yang dihasilkan dari 
+hasil klasifikasi 
+Normalize 
+(bool) 
+(Default=True) Menentukan hasil yang diberikan dalam bentuk 
+proporsi (persentase akurasi) atau jumlah prediksi yang benar. Jika 
+True, hasil skor berupa persentase antara nilai 0 hingga 1, 
+misal hasilnya 0.9 maka 90% prediksi benar. Jika False, hasil skor 
+berupa total angka tanpa dibagi dengan jumlah data, misal 
+model memprediksi 90 dari 100 data benar maka skornya akan 90. 
+ 
+2.ΓÇï
+Confusion Matrix 
+Confusion matrix atau matriks kesalahan adalah metode visualisasi untuk hasil 
+algoritma klasifikasi berbentuk tabel. Confusion matrix akan menampilkan sebuah 
+tabel yang merinci dari jumlah contoh ground truth dari kelas tertentu terhadap 
+jumlah contoh kelas yang diprediksi. Matriks ini digunakan untuk mengukur kinerja 
+model klasifikasi dalam machine learning. Gambaran kuadran dari tabel confusion 
+matrix adalah sebagai berikut. 
+ 
+ 
+ 
+
+
+--- Page 16 ---
+ 
+ 
+ΓùÅΓÇï True Positive (TP) 
+Merupakan jumlah data yang sebenarnya positif dan berhasil diprediksi sebagai 
+positif oleh model. 
+ΓùÅΓÇï True Negative (TN) 
+Merupakan jumlah data yang sebenarnya negatif dan berhasil diprediksi sebagai 
+negatif oleh model. 
+ΓùÅΓÇï False Positive (FP) (Type I Error) 
+Terjadi ketika data sebenarnya negatif, tetapi model memprediksinya sebagai 
+positif. 
+ΓùÅΓÇï False Negative (FN) (Type II Error) 
+Terjadi ketika data sebenarnya positif, namun model memprediksinya sebagai 
+negatif. 
+ 
+Contoh implementasi Confusion Matrix adalah sebagai berikut. 
+ 
+Parameter dalam metrik evaluasi confusion matrix adalah sebagai berikut. 
+Parameters 
+Descriptions 
+y_test 
+Menunjukkan label kebenaran dasar (ground truth) 
+y_pred 
+Menunjukkan label yang diprediksi, seperti yang dihasilkan dari 
+hasil klasifikasi 
+ 
+
+
+--- Page 17 ---
+ 
+ 
+3.ΓÇï
+Classification Report 
+Classfication report merupakan laporan evaluasi yang merangkum performa model 
+fikasi untuk setiap kelas dari hasil klasifikasi. Beberapa metrik evaluasi yang 
+ditampilkan pada classification report adalah precision, recall, F1-score, dan support. 
+Precision merupakan persentase untuk mengukur kemampuan pengklasifikasian 
+untuk tidak memberi label positif pada sampel yang negatif. Recall merupakan 
+persentase untuk megukur kemampuan pengklasifikasian untuk menemukan semua 
+sampel negatif. F1-score merupakan rata-rata harmonis dari precision dan recall 
+dengan memberikan keseimbangan antara keduanya. Berikut adalah beberapa metrik 
+evaluasi penting beserta rumusnya: 
+a.ΓÇï Precision (Presisi) 
+Menunjukkan seberapa banyak prediksi positif yang benar-benar positif. 
+ 
+≡¥æâ≡¥æƒ≡¥æÆ≡¥æÉ≡¥æû≡¥æá≡¥æû≡¥æ£≡¥æ¢ =  
+≡¥æç≡¥æâ
+≡¥æç≡¥æâ + ≡¥É╣≡¥æâ
+b.ΓÇï Recall (Sensitivity / True Positive Rate) 
+Menunjukkan seberapa baik model mengenali data positif. 
+ 
+≡¥æà≡¥æÆ≡¥æÉ≡¥æÄ≡¥æÖ≡¥æÖ =  
+≡¥æç≡¥æâ
+≡¥æç≡¥æâ + ≡¥É╣≡¥æü
+c.ΓÇï F1-Score 
+Merupakan rata-rata harmonik antara Precision dan Recall, berguna saat data 
+tidak seimbang. 
+ 
+≡¥É╣1 ΓêÆ≡¥æå≡¥æÉ≡¥æ£≡¥æƒ≡¥æÆ = 2 ├ù ≡¥æâ≡¥æƒ≡¥æÆ≡¥æÉ≡¥æû≡¥æá≡¥æû≡¥æ£≡¥æ¢ ├ù ≡¥æà≡¥æÆ≡¥æÉ≡¥æÄ≡¥æÖ≡¥æÖ
+≡¥æâ≡¥æƒ≡¥æÆ≡¥æÉ≡¥æû≡¥æá≡¥æû≡¥æ£≡¥æ¢ + ≡¥æà≡¥æÆ≡¥æÉ≡¥æÄ≡¥æÖ≡¥æÖ
+d.ΓÇï Accuracy (Akurasi) 
+Mengukur proporsi prediksi yang benar terhadap seluruh data. 
+ 
+≡¥É┤≡¥æÉ≡¥æÉ≡¥æó≡¥æƒ≡¥æÄ≡¥æÉ≡¥æª =  
+≡¥æç≡¥æâ + ≡¥æç≡¥æü
+≡¥æç≡¥æâ + ≡¥æç≡¥æü +≡¥É╣≡¥æâ + ≡¥É╣≡¥æü
+ 
+
+
+--- Page 18 ---
+ 
+ 
+Contoh implementasi untuk menghasilkan classification report adalah sebagai 
+berikut. 
+ 
+Parameter dalam classification report adalah sebagai berikut. 
+Parameters 
+Descriptions 
+y_test 
+Menunjukkan label kebenaran dasar (ground truth) 
+y_pred 
+Menunjukkan label yang diprediksi, seperti yang dihasilkan dari 
+hasil klasifikasi 
+labels  
+Label prediksi untuk setiap sampel data 
+target_names Nama dari label untuk ditampilkan secara berurutan pada 
+classification report dan bersifat opsional 
+ 
+C.ΓÇï Evaluasi Model Clustering 
+Hasil pemodelan data menggunakan proses clustering dapat dinilai untuk mengukur 
+kualitas pengelompokkan yang telah dibuat. Pengukuran dapat dilakukan menggunakan 
+beberapa metode yang dibagi berdasarkan ada atau tidaknya ground truth (kebenaran 
+dasar). Ground truth mengacu pada representasi akurat dari realitas yang mendasari atau 
+keadaan sebenarnya dari data yang ingin dipelajari oleh sebuah model. Jika ground truth 
+tersedia, maka dapat digunakan metode evaluasi eksternal yang membandingkan 
+pengelompokan dengan kebenaran dan ukuran kelompok. Jika ground truth tidak 
+tersedia, kita dapat menggunakan metode evaluasi internal yang mengevaluasi kualitas 
+pengelompokan dengan mempertimbangkan seberapa baik pengelompokan dipisahkan. 
+Ground truth dapat dianggap sebagai pengawasan dalam bentuk ΓÇ£label clusterΓÇ¥. Oleh  
+ 
+
+
+--- Page 19 ---
+ 
+ 
+karena itu, metode evaluasi eksternal juga dikenal sebagai metode yang diawasi, 
+sedangkan metode evaluasi internal adalah metode yang tidak diawasi. 
+1.ΓÇï
+Metriks Evaluasi Internal 
+Evaluasi internal merupakan proses pengukuran kualitas model clustering 
+berdasarkan data yang ada dalam cluster tanpa memerlukan informasi label atau 
+ground truth. Beberapa metrik evaluasi internal yang dapat digunakan untuk 
+mengukur model clustering adalah sebagai berikut. 
+a.ΓÇï Sillhoutte Coefficient 
+Metrik evaluasi Silhoutte Coefficient digunakan untuk mengevaluasi kualitas 
+pengelompokan dengan mengukur seberapa baik setiap data dalam suatu 
+kelompok dibandingkan dengan kelompok lainnya. Plot silhouette menampilkan 
+ukuran seberapa dekat setiap titik dalam satu cluster dengan titik-titik di cluster 
+tetangga. Skor Silhouette Coefficient berkisar antara -1 hingga 1, di mana nilai 
+yang lebih tinggi mengindikasikan pengelompokan yang lebih baik. Jika skor 
+Silhouette memiliki nilai mendekati +1, maka sampel jauh dari cluster tetangga. 
+Nilai 0 menunjukkan bahwa sampel berada pada atau sangat dekat dengan batas 
+keputusan antara dua cluster tetangga dan nilai negatif menunjukkan bahwa 
+sampel tersebut mungkin telah dimasukkan ke cluster yang salah. Contoh 
+implementasi untuk menghitung skor Sillhoutte Coefficient adalah sebagai 
+berikut. 
+ 
+Parameter dalam evaluasi akurasi adalah sebagai berikut. 
+Parameters 
+Descriptions 
+X 
+Pasangan antara sampel data atau fitur data dan biasanya 
+berbentuk array 
+
+
+--- Page 20 ---
+labels  
+Label prediksi untuk setiap sampel data 
+ 
+b.ΓÇï Davies-Bouldin Score 
+Metrik evaluasi Davies-Bouldin Index digunakan untuk membandingkan 
+kemiripan setiap klaster dengan klaster yang paling mirip berikutnya dalam 
+dataset, yang dirata-ratakan dari semua k klaster. Metrik ini dihitung dengan 
+menggunakan jarak rata-rata dari semua titik ke pusat di dalam setiap cluster 
+dan jarak antara pusat untuk pasangan cluster. Nilai Davies-Bouldin yang 
+sempurna adalah 0 yang berarti cluster-cluster terpisah dengan baik, terdefinisi 
+dengan jelas dan padat. Tidak ada batas atas untuk metrik Davies-Bouldin, 
+tetapi skor yang lebih tinggi berarti cluster tidak terdefinisi dengan baik dan 
+tumpang tindih satu sama lain. Contoh implementasi untuk menghitung 
+davies-bouldin score: 
+ 
+Parameter dalam metrik evaluasi davies-bouldin score adalah sebagai berikut. 
+Parameters 
+Descriptions 
+X 
+Pasangan antara sampel data atau fitur data dan biasanya 
+berbentuk array 
+labels  
+Label prediksi untuk setiap sampel data 
+ 
+ 
+ 
+
+
+--- Page 21 ---
+ 
+2.ΓÇï
+Metrik Evaluasi Eksternal 
+a.ΓÇï Adjust Rand Index (ARI) 
+Adjusted Rand Index (ARI) adalah metrik evaluasi yang digunakan untuk 
+mengukur kemiripan antara dua partisi dari kumpulan data dengan 
+membandingkan penugasan atau letak titik data ke dalam cluster. Nilai ARI 
+berkisar antara 0 hingga 1, di mana nilai 1 menunjukkan kecocokan sempurna 
+antara partisi dan nilai yang mendekati 0 menunjukkan penugasan titik data 
+secara acak ke dalam cluster. Contoh implementasi adjust rand index adalah 
+sebagai berikut. 
+ 
+Parameter dalam metrik evaluasi adjust rand index adalah sebagai berikut. 
+Parameters 
+Descriptions 
+labels_true 
+Label dari ground truth yang akan digunakan sebagai 
+referensi 
+labels_pred  
+Label cluster yang akan dievaluasi 
+ 
+ 
+
+
+--- Page 22 ---
+ 
+ 
+ 
+OVERFITTING & UNDERFITTING 
+ 
+Dalam machine learning, tujuan utama adalah membuat model yang dapat memprediksi atau 
+mengklasifikasikan data baru dengan akurat. Tantangannya adalah agar model tidak terlalu 
+terikat pada data yang ada (overfitting) atau tidak cukup belajar dari data (underfitting). 
+Kedua masalah ini penting untuk dipahami agar model yang dibangun dapat bekerja dengan 
+baik pada data baru dan dapat diandalkan. 
+ 
+ 
+A.ΓÇï Overfitting 
+Overfitting adalah keadaan yang terjadi ketika model Machine Learning mempelajari 
+data terlalu mendetail, termasuk menangkap noise yang seharusnya diabaikan. 
+Akibatnya, model sulit melakukan generalisasi dan hanya cocok pada data pelatihan, 
+menghasilkan akurasi tinggi saat training namun rendah pada testing. Kondisi ini mirip 
+dengan siswa yang hanya menghafal contoh soal tanpa memahami konsep, sehingga 
+kesulitan saat menghadapi soal baru. Overfitting disebabkan oleh kurangnya variasi data 
+atau model yang terlalu kompleks. Untuk mengatasinya, kita bisa menambah variasi data 
+atau mengurangi kerumitan model. Dalam mengatasi Overfitting akan dibahas dalam 
+Tuning Optimation. 
+ 
+
+
+--- Page 23 ---
+ 
+ 
+B.ΓÇï Underfitting 
+Underfitting adalah kondisi di mana model Machine Learning gagal mempelajari pola 
+data dengan baik. Akibatnya, model tidak dapat menangkap hubungan antar variabel atau 
+melakukan prediksi secara akurat. Pada model underfitting, akurasi rendah terjadi baik 
+pada training maupun testing karena model tidak mampu menangkap tren data yang ada. 
+Underfitting biasanya disebabkan oleh model yang terlalu sederhana, sehingga 
+cenderung mengabaikan data dan membuat asumsi yang salah. 
+ 
+ 
+
+
+--- Page 24 ---
+ 
+TUNING MODEL OPTIMATION 
+Tuning Parameters atau Hyperparameter Tuning adalah proses mengatur hyperparameter 
+dalam model Machine Learning untuk mencapai performa terbaik pada dataset. 
+Hyperparameter adalah parameter yang harus diatur sebelum training dan tidak dipelajari 
+langsung dari data, seperti jumlah pohon dalam Random Forest, jumlah tetangga pada 
+K-Nearest Neighbors, dan learning rate dalam Neural Network. Tuning ini diperlukan untuk 
+memastikan model bekerja secara optimal, menghindari overfitting atau underfitting, dan 
+memaksimalkan akurasi atau metrik kinerja lainnya. Berikut contoh hyperparameters yang 
+tersedia dari Regression dan Clustering. 
+A.ΓÇï Linear Regression Hyperparameters 
+Teknik regresi untuk memodelkan hubungan linier antara variabel input dan output 
+dengan mencari garis terbaik yang meminimalkan error. 
+ 
+Hyperparameters 
+Description 
+fit_intercept 
+(Default: True) Menentukan apakah model harus menghitung 
+nilai intercept. Jika False, model tidak akan menggunakan 
+intercept (artinya data diharapkan sudah terpusat di sekitar nol). 
+copy_X 
+(Default: True) Jika True, maka salinan X akan dibuat untuk 
+keperluan komputasi; jika False, X dapat dimodifikasi langsung, 
+yang dapat menghemat memori pada dataset besar. 
+n_jobs 
+(Default: None) Jumlah prosesor yang digunakan untuk 
+komputasi paralel. None berarti satu prosesor, sementara -1 akan 
+menggunakan semua prosesor yang tersedia. Ini biasanya 
+meningkatkan kecepatan pada masalah besar. 
+positive 
+(Default: False) Jika True, memaksa semua koefisien model 
+positif. Opsi ini hanya didukung untuk array yang padat. Ini dapat 
+berguna dalam beberapa kasus ketika semua fitur harus 
+memberikan pengaruh positif. 
+
+
+--- Page 25 ---
+ 
+B.ΓÇï Lasso Regression 
+Regresi linier dengan regularisasi L1 yang mengurangi kompleksitas model dengan 
+menyusutkan beberapa koefisien hingga nol. 
+ 
+Hyperparameters 
+Description 
+alpha 
+(Default: 1.0) Mengontrol kekuatan regularisasi dalam model. 
+Semakin tinggi nilai alpha, semakin kuat efek regularisasi untuk 
+mencegah overfitting. Nilai ini harus lebih besar atau sama 
+dengan 0. 
+fit_intercept 
+(Default: True) Menentukan apakah model harus menghitung 
+nilai intercept. Jika True, model akan menghitung intercept; jika 
+False, model akan mengasumsikan data sudah terpusat di sekitar 
+nol. 
+max_iter 
+(Default: 1000) Menentukan jumlah maksimum iterasi yang akan 
+digunakan oleh algoritma optimasi. Jika iterasi mencapai batas ini 
+sebelum model selesai konvergen, proses akan berhenti. 
+tol 
+(Default: 0.0001) Toleransi untuk menentukan kapan optimasi 
+harus berhenti. Jika perbaikan dalam iterasi berada di bawah nilai 
+toleransi ini, algoritma akan berhenti. 
+positive 
+(Default: False): Jika True, membatasi semua koefisien model 
+agar bernilai positif, berguna untuk konteks dimana interpretasi 
+koefisien negatif tidak diinginkan. 
+selection 
+(Default: 'cyclic') Mengontrol cara pemilihan fitur selama iterasi. 
+Opsi 'cyclic' memperbarui fitur secara berurutan, sedangkan opsi 
+'random' memilih fitur secara acak di setiap iterasi. 
+ 
+C.ΓÇï Logistik Regression Hyperparameters 
+Model klasifikasi untuk memprediksi probabilitas kelas biner atau ganda berdasarkan 
+hubungan logistik antara variabel input dan output. 
+ 
+ 
+
+
+--- Page 26 ---
+ 
+ 
+ 
+Hyperparameters 
+Description 
+penalty 
+(Default: "l2") Menentukan jenis regularisasi yang digunakan 
+dalam model. 
+"l2": Regularisasi berdasarkan norma kuadrat (default), berguna 
+untuk mengurangi overfitting. 
+"l1": Regularisasi berdasarkan norma absolut, menghasilkan 
+koefisien sparse (beberapa koefisien menjadi nol). 
+"elasticnet": Kombinasi dari l1 dan l2, hanya digunakan dengan 
+solver saga. 
+dual 
+(Default: False) Menentukan apakah menggunakan formulasi 
+dual untuk optimasi, dengan nilai True: Menggunakan formulasi 
+dual, lebih efisien untuk data dengan lebih banyak fitur daripada 
+sampel, dan nilai False: Menggunakan formulasi primal, lebih 
+cocok untuk data dengan lebih banyak sampel daripada fitur. 
+tol 
+(Default: 0.0001) Toleransi untuk menentukan kapan optimasi 
+harus berhenti. Jika perbaikan dalam iterasi berada di bawah nilai 
+toleransi ini, algoritma akan berhenti. 
+c 
+(Default: 1.0) Kebalikan dari kekuatan regularisasi, semakin kecil 
+nilai C, semakin kuat regularisasi. Jika Nilai lebih kecil dari C 
+berarti 
+regularisasi 
+yang 
+lebih 
+kuat. 
+Jika 
+lebih 
+besar 
+memungkinkan model lebih bebas, berisiko overfitting. 
+fit_intercept 
+(Default: True) Menentukan apakah akan menambahkan 
+intercept 
+(konstanta) 
+dalam 
+model, 
+dengan 
+value True: 
+Menambahkan 
+intercept 
+(konstanta), 
+dan 
+False: 
+Tidak 
+menambahkan intercept, model hanya menggunakan fitur. 
+solver 
+(Default: "lbfgs") Menentukan algoritma yang digunakan untuk 
+optimasi. 
+ΓùÅΓÇï "lbfgs": Metode optimasi berbasis kuadrat, cocok untuk data 
+besar dengan regularisasi l2. 
+ΓùÅΓÇï "liblinear": Cocok untuk data kecil, mendukung regularisasi 
+l1 dan l2. 
+ΓùÅΓÇï "newton-cg": Solver berbasis metode Newton, lebih efisien 
+
+
+--- Page 27 ---
+untuk data besar. 
+ΓùÅΓÇï "sag": Metode Stochastic Average Gradient, cocok untuk data 
+besar. 
+ΓùÅΓÇï "saga": Versi lebih cepat dari sag, mendukung regularisasi l1, 
+l2, dan elasticnet 
+max_iter 
+(Default: 100) Menentukan jumlah iterasi maksimum untuk 
+konvergensi. Nilai lebih tinggi memberi lebih banyak kesempatan 
+untuk mencapai konvergensi, namun meningkatkan waktu 
+komputasi. 
+multi_class 
+(Default: "auto") Menentukan pendekatan klasifikasi untuk 
+multi-kelas. 
+ΓùÅΓÇï "auto": Secara otomatis memilih ovr (one-vs-rest) untuk dua 
+kelas dan multinomial untuk lebih dari dua kelas. 
+ΓùÅΓÇï "ovr": One-vs-rest, membuat model untuk setiap kelas. 
+ΓùÅΓÇï "multinomial": Mempertimbangkan semua kelas sekaligus, 
+lebih akurat untuk multi-kelas. 
+warm_start 
+(Default: False) Jika True, solusi dari panggilan fit sebelumnya 
+digunakan sebagai inisialisasi. 
+n_jobs 
+(Default: None) Menentukan jumlah prosesor untuk klasifikasi 
+paralel saat multi_class='ovr' 
+ 
+D.ΓÇï K-Means Clustering 
+Algoritma clustering yang membagi data ke dalam sejumlah cluster berdasarkan 
+kedekatan centroid. 
+ 
+Hyperparameters 
+Description 
+n_clusters 
+(Default : 8) Jumlah cluster yang akan dibentuk dan jumlah 
+centroid yang dihasilkan. 
+init 
+(Default : ΓÇÿk-means++ΓÇÖ) Metode untuk inisialisasi centroid awal. 
+'k-means++' 
+menggunakan 
+distribusi 
+probabilitas 
+untuk 
+mempercepat konvergensi, sedangkan 'random' memilih observasi 
+acak dari data. 
+n_init 
+(Default : ΓÇÿautoΓÇÖ) Jumlah kali algoritma K-Means dijalankan 
+
+
+--- Page 28 ---
+dengan centroid seed berbeda. Hasil akhir adalah keluaran terbaik 
+dari beberapa run ini dalam hal inertia. Ketika n_init='auto', 
+jumlah run bergantung pada init: 10 kali jika init='random' atau 
+init callable, 1 kali jika init='k-means++' atau init berupa array. 
+max_iter 
+(Default : 300) Jumlah iterasi maksimum algoritma K-Means 
+untuk satu run. 
+tol 
+(Default : 0.0001) Toleransi relatif terhadap norma Frobenius dari 
+perbedaan pusat cluster dalam dua iterasi berturut-turut untuk 
+menentukan konvergensi. 
+verbose 
+(Default : 0) Mode verbosity. Mengontrol tingkat informasi yang 
+ditampilkan selama proses fitting. 
+random_state 
+(Default : none) Menentukan pengacakan untuk inisialisasi 
+centroid. Menggunakan nilai int agar hasil acak menjadi 
+deterministik. 
+copy_x 
+(Default : True) Jika True, data asli tidak diubah. Jika False, data 
+asli dapat dimodifikasi untuk perhitungan jarak, dan dikembalikan 
+ke bentuk semula setelah fungsi selesai dijalankan, tetapi 
+perbedaan numerik kecil mungkin terjadi. 
+algorithm 
+(Default : ΓÇÿlloydΓÇÖ) Algoritma K-Means yang digunakan. 'lloyd' 
+adalah algoritma gaya EM klasik, sedangkan 'elkan' lebih efisien 
+pada beberapa dataset dengan cluster yang jelas, tetapi 
+memerlukan lebih banyak memori. 
+E.ΓÇï DBSCAN (Density-Based Spatial Clustering of Applications with Noise) 
+Algoritma clustering yang mengelompokkan data berdasarkan kepadatan dan dapat 
+menangani bentuk cluster yang kompleks serta mengabaikan outlier. 
+ 
+Hyperparameters 
+Description 
+eps 
+(Default : 0.5) Jarak maksimum antara dua sampel agar dapat 
+dianggap dalam satu lingkungan. Nilai ini sangat penting untuk 
+disesuaikan dengan dataset dan fungsi jarak yang dipilih. 
+min_samples 
+(Default: 5) Jumlah sampel minimum dalam lingkungan untuk 
+
+
+--- Page 29 ---
+suatu titik dianggap sebagai titik inti. Semakin tinggi nilai 
+min_samples, semakin padat cluster yang akan ditemukan. 
+metric 
+(Default: 'euclidean') Fungsi jarak untuk mengukur jarak 
+antar-titik. Dapat berupa string atau callable. Jika "precomputed" 
+digunakan, X harus berupa matriks jarak berbentuk kotak. 
+algorithm 
+(Default: 'auto') Algoritma untuk menghitung jarak titik. Pilihan 
+termasuk 'ball_tree', 'kd_tree', dan 'brute'. 
+leaf_size 
+(Default: 30) Ukuran leaf yang diberikan untuk BallTree atau 
+cKDTree. 
+n_jobs 
+(Default: 
+none) 
+Jumlah 
+pekerjaan 
+paralel. 
+-1 
+berarti 
+menggunakan semua prosesor. 
+p 
+(Default: none) Kekuatan metrik Minkowski yang akan 
+digunakan untuk menghitung jarak antar titik. Jika Tidak Ada, 
+maka p=2 (setara dengan jarak Euclidean). 
+ 
+F.ΓÇï Hierarchical Clustering 
+Metode clustering yang membangun hierarki cluster secara bertahap, menggabungkan 
+atau memisahkan data untuk membentuk dendrogram. 
+ 
+Hyperparameters 
+Description 
+n_clusters 
+(Default: 2) Menentukan jumlah cluster yang ingin ditemukan. 
+Jika distance_threshold ditentukan, maka n_clusters harus bernilai 
+None. 
+metric 
+(Default 
+= 
+"euclidean") 
+Menghitung 
+linkage 
+dengan 
+menggunakan metrik jarak tertentu, seperti "euclidean", "l1", "l2", 
+"manhattan", "cosine", atau "precomputed". 
+memory 
+(Default = None) Menyimpan hasil komputasi sementara untuk 
+mempercepat eksekusi. Jika diisi dengan path, hasil akan 
+disimpan pada direktori tersebut. 
+connectivity 
+(Default = None) Matriks konektivitas untuk menentukan struktur 
+tetangga antar data dalam algoritma clustering. 
+compute_full_tree (Default = 'auto') Menghentikan pembangunan tree pada 
+
+
+--- Page 30 ---
+n_clusters untuk efisiensi waktu. Berguna jika connectivity 
+disediakan. Value yang dapat diisi adalah nilai bool. 
+linkage 
+(Default = 'ward') Menentukan kriteria linkage antara cluster: 
+ΓùÅΓÇï 'ward' meminimalkan variansi antar cluster. 
+ΓùÅΓÇï 'average' menghitung rata-rata jarak. 
+ΓùÅΓÇï 'complete' menggunakan jarak maksimum. 
+ΓùÅΓÇï 'single' menggunakan jarak minimum. 
+distance_treshold 
+(Default: None) Menentukan jarak linkage minimal untuk 
+menghentikan penggabungan cluster. Jika diisi, n_clusters harus 
+None, Value yang dapat diisi adalah float 
+compute_distance
+s 
+(Default: False) Menghitung jarak antar cluster meskipun 
+distance_threshold tidak diatur. Digunakan untuk visualisasi 
+dendrogram. Value yang dapat diisi adalah nilai bool 
+ 
+ 
+
+
+--- Page 31 ---
+K-FOLD CROSS VALIDATION 
+A.ΓÇï Definisi K-Fold Cross Validation 
+ 
+ 
+K-Fold Cross Validation adalah teknik validasi yang membagi dataset menjadi beberapa 
+subset atau fold yang sama besar. Model dilatih dan dievaluasi k kali, masing-masing 
+menggunakan satu fold sebagai data validasi dan sisanya sebagai data latih. Skor akhir 
+adalah rata-rata dari semua evaluasi pada setiap fold. Teknik ini penting untuk 
+mendapatkan evaluasi model yang lebih andal, mengurangi bias dan variance, serta 
+memastikan performa model yang konsisten. 
+ 
+Mengapa K-Fold Penting: K-Fold membantu kita menghindari bias yang bisa terjadi 
+bila model hanya diuji sekali pada satu subset data. K-Fold juga membantu dalam 
+mengatasi permasalahan overfitting, selain itu, K-Fold memberikan gambaran performa 
+model yang lebih stabil di seluruh dataset dan sangat berguna saat dataset terbatas. 
+Rasio Pembagian K-Folds, data dibagi menjadi K bagian (folds). Pada setiap iterasi, 1 
+fold digunakan untuk pengujian (testing), dan K-1 fold digunakan untuk pelatihan 
+(training). Rasio training dan testing tergantung pada nilai K: 
+ΓùÅΓÇï
+K = 4: 75% training, 25% testing (3 fold untuk training, 1 fold untuk testing). 
+ΓùÅΓÇï
+K = 5: 80% training, 20% testing (4 fold untuk training, 1 fold untuk testing). 
+ΓùÅΓÇï
+K = 10: 90% training, 10% testing (9 fold untuk training, 1 fold untuk testing). 
+ 
+
+
+--- Page 32 ---
+ 
+hyperparameter yang ada dalam K-Fold. 
+Hyperparameter 
+Description 
+n_splits (int, default = 5) 
+Jumlah fold (lipatan) yang digunakan dalam 
+K-Fold cross-validation. Harus lebih besar 
+atau sama dengan 2. 
+shuffle (bool, default=False) 
+Menentukan apakah data akan diacak sebelum 
+dibagi menjadi batch (fold). Jika True, data 
+akan diacak terlebih dahulu sebelum 
+pembagian. 
+random_state (int, default=None) 
+Ketika 
+shuffle=True, 
+random_state 
+mengontrol 
+urutan 
+indeks 
+data, 
+yang 
+menentukan acak atau tidaknya pembagian 
+fold. 
+Pengaturan 
+nilai 
+random_state 
+dengan integer akan memberikan hasil 
+yang konsisten pada pemanggilan yang 
+berbeda. 
+ 
+B.ΓÇï Implementasi K-Fold 
+a.ΓÇï Import Library 
+ 
+b.ΓÇï
+Load Dataset & Model (dataset contoh) 
+ 
+c.ΓÇï
+Akurasi tanpa K-Fold 
+
+
+--- Page 33 ---
+ 
+d.ΓÇï
+K-Fold Implementation 
+ 
+e.ΓÇï
+Perbandingan Hasil 
+ 
+ 
+
+
+--- Page 34 ---
+ 
+GRIDSEARCHCV 
+A.ΓÇï Definisi GridSearchCV 
+ 
+GridSearchCV adalah teknik dalam machine learning untuk mencari kombinasi terbaik 
+dari hyperparameter model secara otomatis. GridSearchCV mencoba berbagai kombinasi 
+dari hyperparameter yang diberikan dalam grid pencarian (daftar nilai-nilai parameter) 
+dan melakukan cross-validation untuk memilih kombinasi terbaik yang menghasilkan 
+performa model yang optimal. Dengan cara ini, GridSearchCV membantu menemukan 
+konfigurasi parameter yang menghasilkan akurasi atau performa terbaik pada model. 
+Berikut adalah parameter dalam GridSearchCV: 
+ 
+Hyperparameter 
+Description 
+Estimator (Required) 
+Model yang ingin dipakai, misalnya 
+svm.SVC() untuk SVM. 
+param_grid (Required) 
+Dictionary yang berisi nama parameter sebagai 
+key dan list nilai parameter sebagai value. 
+Scoring 
+Cara untuk mengevaluasi performa model. 
+Bisa berupa string (misalnya 'accuracy', 
+'roc_auc'), callable function, atau dict untuk 
+beberapa metrik. 
+n_jobs 
+Jumlah pekerjaan yang dijalankan secara 
+
+
+--- Page 35 ---
+paralel. Nilai -1 berarti menggunakan semua 
+core yang tersedia. 
+refit 
+Menentukan apakah model harus di-fit ulang 
+menggunakan parameter terbaik setelah 
+pencarian. Biasanya di-set ke True 
+cv 
+Strategi cross-validation. Bisa berupa integer 
+(jumlah fold), objek pembagi cross-validation, 
+atau None (default 5-fold). 
+verbose 
+Mengontrol tingkat verbositas. Nilai yang lebih 
+tinggi akan memberikan lebih banyak 
+informasi selama proses pencarian. value 0-2. 
+pre_dispatch 
+Mengontrol jumlah pekerjaan yang dikerjakan 
+secara paralel. Ini berguna untuk mencegah 
+penggunaan memori berlebihan. 
+error_score 
+Nilai yang akan diberikan jika ada error saat 
+fitting model. Bisa berupa nilai numerik atau 
+'raise' untuk melemparkan error. 
+return_train_score 
+Jika True, akan mengembalikan skor untuk 
+data pelatihan dalam cv_results_. Defaultnya 
+adalah False. 
+ 
+B.ΓÇï Implementasi GridSearchCV pada Regression 
+a.ΓÇï Import Library 
+ 
+b.ΓÇï Load Dataset 
+ 
+ 
+
+
+--- Page 36 ---
+ 
+ 
+c.ΓÇï Split Data dan Load Model 
+ 
+d.ΓÇï Param-Grid 
+ 
+e.ΓÇï Grid-Search 
+ 
+ 
+
+
+--- Page 37 ---
+ 
+ 
+f.ΓÇï Fit Model 
+ 
+g.ΓÇï Hasil 
+ 
+ΓùÅΓÇï Parameter terbaik: {'C': 0.01, 'class_weight': None, 'max_iter': 100, 'penalty': 'l2', 
+'random_state': 42, 'solver': 'saga', 'tol': 0.0001, 'warm_start': True} 
+ΓùÅΓÇï Skor akurasi terbaik: 0.80625 
+ΓùÅΓÇï Akurasi pada prediksi: 0.83 
+ 
+C.ΓÇï Implementasi GridSearchCV pada Clustering 
+a.ΓÇï Import Library 
+ 
+ 
+
+
+--- Page 38 ---
+ 
+ 
+b.ΓÇï Load Dataset 
+ 
+c.ΓÇï Implementasi Elbow Methods 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 39 ---
+ 
+ 
+ 
+d.ΓÇï Inisiasi Model 
+ 
+e.ΓÇï Param-Grid & Grid Search 
+ 
+f.ΓÇï
+ 
+
+
+--- Page 40 ---
+ 
+ 
+g.ΓÇï Get Best Result 
+ 
+h.ΓÇï Hasil 
+ 
+ 
+i.ΓÇï Visualisasi 
+ 
+ 
+ 
+
+
+--- Page 42 ---
+ 
+REGRESI 
+ 
+Regresi adalah pendekatan statistik yang digunakan untuk menganalisis hubungan antara 
+variabel dependen (variabel target) dan satu atau lebih variabel independen (variabel 
+prediktor). Tujuannya adalah untuk menentukan fungsi yang paling sesuai yang mencirikan 
+hubungan antara variabel-variabel ini. Dalam konteks Machine Learning. Regresi adalah 
+teknik pembelajaran mesin terbimbing, yang digunakan untuk memprediksi nilai variabel 
+dependen untuk data baru yang tak terlihat. Teknik ini memodelkan hubungan antara fitur 
+input dan variabel target, yang memungkinkan estimasi atau prediksi nilai numerik. Untuk 
+memulai implementasi model pada regresi, kita akan menggunakan sebuah dataset yang 
+berisi informasi kesehatan dari sejumlah pasien. Dataset ini mencakup berbagai variabel 
+kesehatan dan gaya hidup dari pasien. 
+Penjelasan variable pada : 
+ΓùÅΓÇï
+PatientID: Pengidentifikasi unik untuk setiap pasien. 
+ΓùÅΓÇï
+BMI: Indeks Massa Tubuh, dihitung dari tinggi dan berat badan. 
+ΓùÅΓÇï
+HadArthritis: Indikator apakah pasien menderita arthritis. 
+ΓùÅΓÇï
+HadDiabetes: Indikator apakah pasien menderita diabetes. 
+ΓùÅΓÇï
+BloodSugarLevel: Kadar gula darah pasien. 
+ 
+A.ΓÇï Analisis Statistik (Statistical Analysis) 
+Analisis statistik digunakan untuk memahami hubungan antara variabel dalam dataset 
+dan mengukur kekuatan serta signifikansi hubungan tersebut. Analisis Statistik penting 
+untuk mengevaluasi model dan menentukan fitur yang berpengaruh signifikan terhadap 
+prediksi. Analisis Statistik digunakan setelah model dilatih. 
+ΓùÅΓÇï Koefisien menunjukkan seberapa besar perubahan pada variabel target jika fitur 
+berubah. Jika koefisien positif, artinya peningkatan pada fitur akan meningkatkan 
+prediksi target. Sebaliknya, koefisien negatif berarti peningkatan pada fitur akan 
+menurunkan prediksi target. Semakin besar nilai koefisien, semakin kuat pengaruh 
+fitur terhadap target. 
+ 
+
+
+--- Page 43 ---
+ 
+ 
+ΓùÅΓÇï Intercept adalah nilai prediksi model ketika semua fitur bernilai nol. Untuk membaca 
+intercept, jika semua fitur tidak ada pengaruhnya (nilai nol), maka prediksi model 
+akan bernilai sebesar intercept. Ini adalah titik dasar sebelum fitur mempengaruhi 
+prediksi. 
+ΓùÅΓÇï P-value digunakan untuk mengukur apakah hubungan antara fitur dan target 
+signifikan. Jika p-value lebih kecil dari 0.05 (nilai signifikansi umum), maka fitur 
+dianggap berpengaruh signifikan terhadap model. Sebaliknya, jika p-value lebih besar 
+dari 0.05, fitur tersebut dianggap tidak signifikan, yang berarti tidak ada bukti kuat 
+bahwa fitur itu berpengaruh terhadap target. 
+ 
+Implementasi Analisis Statistik 
+Pada implementasi Analisis Statistik menggunakan data dummy agar mempermudah 
+pemahaman terhadap data. 
+ 
+ 
+
+
+--- Page 44 ---
+ 
+ 
+Output: 
+ 
+ 
+B.ΓÇï Linear Regression 
+Regresi linear memperkirakan hubungan antara variabel target kontinu dan satu atau 
+lebih variabel independen dengan asumsi adanya hubungan linear di antara mereka. 
+Model ini digunakan untuk memprediksi nilai kontinu, seperti tinggi, berat, BMI, atau 
+kadar gula darah pasien, berdasarkan variabel yang memengaruhinya. Regresi linear 
+menghasilkan persamaan yang memungkinkan prediksi nilai target pada data baru, tanpa 
+batasan pada rentang prediksi. Sebaliknya, regresi logistik digunakan untuk klasifikasi 
+dengan hasil dalam bentuk probabilitas antara 0 dan 1. 
+Rumus : Y = a + bX 
+Y: variabel dependen atau variabel yang ingin diprediksi 
+X: variabel independen atau variabel yang digunakan untuk memprediksi Y 
+a: intercept atau nilai konstan ketika X = 0 
+b: slope atau kemiringan garis regresi 
+ 
+Kenapa Menggunakan Linear Regression 
+Regresi linear cocok untuk masalah prediksi dengan hasil kontinu, di mana kita ingin 
+mengetahui hubungan linear antara variabel target dan prediktor. Model ini mudah 
+diinterpretasikan, karena menghasilkan persamaan linear yang menggambarkan 
+hubungan antara target dan prediktor. Regresi linear juga efisien secara komputasi, 
+sehingga ideal untuk digunakan pada dataset dengan ukuran sedang hingga besar. Model 
+ini sering digunakan sebagai langkah awal dalam pemodelan data kontinu karena 
+kesederhanaan dan kejelasannya. 
+ 
+ 
+ 
+ 
+
+
+--- Page 45 ---
+ 
+ 
+Implementasi Code 
+Import Library yang akan digunakan: Langkah pertama adalah mengimport library 
+yang dibutuhkan untuk mengimplementasikan model regresi linear. Library ini 
+mencakup algoritma regresi linear dari scikit-learn dan fungsi-fungsi evaluasi yang 
+diperlukan. 
+ 
+ΓùÅΓÇï LinearRegression: Untuk membuat dan melatih model regresi linear. 
+ΓùÅΓÇï mean_squared_error: Untuk mengevaluasi kinerja model dengan menghitung 
+rata-rata kuadrat kesalahan (MSE). 
+ΓùÅΓÇï train_test_split: Untuk membagi dataset menjadi data latih dan data uji. 
+ΓùÅΓÇï matplotlib.pyplot: Untuk memvisualisasikan hasil prediksi dengan grafik scatterplot.  
+ 
+Persiapan Data: Pisahkan variabel independen (fitur) dan variabel dependen (label). 
+Variabel independen adalah semua kolom yang akan digunakan untuk memprediksi 
+kadar gula darah, sementara variabel dependen adalah kolom BloodSugarLevel yang 
+menjadi target prediksi. 
+ 
+ 
+ 
+
+
+--- Page 46 ---
+ 
+ 
+Pembagian Data: Bagi data menjadi data latih dan data uji untuk melatih model dan 
+mengukur akurasi model pada data yang tidak terlihat sebelumnya. 
+ 
+ΓùÅΓÇï test_size=0.2: Menentukan bahwa 20% dari data akan digunakan sebagai data uji, 
+sementara 80% sebagai data latih. 
+ΓùÅΓÇï random_state=12: Menetapkan nilai acak agar hasil pembagian data tetap konsisten 
+setiap kali kode dijalankan. 
+ 
+Pelatihan Model: Latih model regresi linear menggunakan data train. Model akan 
+menghitung koefisien yang sesuai untuk setiap fitur agar dapat memprediksi kadar gula 
+darah sebaik mungkin berdasarkan data train 
+ 
+ΓùÅΓÇï linear_model.fit(): Melatih model untuk menemukan hubungan antara variabel 
+independen dan variabel dependen dalam data latih. 
+ 
+Prediksi: Setelah model dilatih, gunakan model untuk memprediksi kadar gula darah 
+pada data uji. 
+
+
+--- Page 47 ---
+ 
+ΓùÅΓÇï y_pred: Berisi prediksi kadar gula darah untuk data uji (X_test) berdasarkan model 
+yang sudah dilatih. 
+ 
+Intercept dan Koefisien : Setelah melatih model, kita dapat memperoleh intercept (titik 
+potong garis regresi dengan sumbu Y) dan koefisien (pengaruh setiap variabel input 
+terhadap hasil prediksi). 
+ 
+ΓùÅΓÇï Intercept (): Konstanta dalam model, menunjukkan prediksi ketika semua fitur 
+bernilai nol. 
+ΓùÅΓÇï Koefisien (): Pengaruh masing-masing fitur terhadap prediksi. Koefisien positif 
+meningkatkan prediksi, sedangkan negatif menurunkannya. 
+ 
+p-value : digunakan untuk menguji signifikansi koefisien. 
+ 
+ΓùÅΓÇï p-value: Menunjukkan signifikansi koefisien. Jika p-value < 0.05, koefisien 
+signifikan; jika > 0.05, koefisien tidak signifikan. 
+
+
+--- Page 48 ---
+ 
+ 
+C.ΓÇï Logistic Regression 
+Apa itu Logistic Regression 
+Regresi logistik memperkirakan probabilitas terjadinya suatu peristiwa berdasarkan 
+variabel independen dan digunakan untuk prediksi hasil biner, seperti "Ya/Tidak" atau 
+"1/0." Berbeda dengan regresi linear yang dirancang untuk prediksi nilai kontinu, regresi 
+logistik menggunakan fungsi sigmoid untuk membatasi prediksi dalam rentang 0 hingga 
+1, memastikan hasil probabilitas yang valid bagi data biner. 
+Formula : ln(p/1-p) = ╬▓0 + ╬▓1X1 + ╬▓2X2 + ... + ╬▓nXn 
+ΓùÅΓÇï ln(p/1-p): logit dari variabel dependen (yaitu probabilitas sukses dibagi 
+dengan probabilitas gagal) 
+ΓùÅΓÇï ╬▓0: konstanta (intercept) dari model 
+ΓùÅΓÇï ╬▓1, ╬▓2, ..., ╬▓n: koefisien regresi dari masing-masing variabel independen (X1, 
+X2, ..., Xn) 
+ΓùÅΓÇï X1, X2, ..., Xn: variabel independen yang digunakan dalam model 
+ 
+Kenapa Menggunakan Logistic Regression 
+Regresi logistik cocok untuk masalah klasifikasi biner (ya atau tidak, 1 atau 0) atau 
+kategorik (besar sedang kecil, sering jarang tidak pernah). Model ini dapat 
+diinterpretasikan, dan probabilitas output memberikan wawasan mengenai kemungkinan 
+keanggotaan kelas. Regresi logistik efisien secara komputasi dan tidak mengharuskan 
+variabel target memiliki hubungan linear dengan prediktor. Regresi ini sering menjadi 
+pilihan pertama untuk tugas klasifikasi karena kesederhanaan dan interpretabilitasnya. 
+ 
+Implementasi Code 
+Import Library yang akan digunakan: Import library yang dibutuhkan untuk 
+melakukan regresi logistik 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 49 ---
+ 
+ 
+ 
+ΓùÅΓÇï LogisticRegression: Kelas dari scikit-learn untuk membuat model regresi logistik.  
+ΓùÅΓÇï train_test_split: Untuk membagi dataset menjadi data latih dan data uji. 
+ΓùÅΓÇï accuracy_score: Metrik untuk menghitung akurasi model. 
+ΓùÅΓÇï Confusion_matrix: Metrik untuk menghasilkan confusion matrix yang berguna 
+dalam evaluasi model klasifikasi. 
+ΓùÅΓÇï Classification_report metrik untuk menghasilkan laporan yang mencakup precision, 
+recall, dan F1-score. 
+ 
+Persiapan Data: Pisahkan variabel independen (fitur) dan variabel dependen (label). 
+Dalam contoh ini: 
+Variabel independen: semua variable selain HadArthritis dan PatientID. 
+Variabel dependen: HadArthritis. 
+ 
+ 
+Pembagian Data: Bagi data menjadi data latih dan data uji untuk melatih model dan 
+mengukur akurasi model. 
+ 
+
+
+--- Page 50 ---
+ 
+ 
+Pelatihan Model: Gunakan data latih untuk melatih model regresi logistik. Model akan 
+menyesuaikan koefisien dari setiap variabel independen untuk menemukan hubungan 
+terbaik antara variabel input dan hasil. 
+ 
+ΓùÅΓÇï Log_regressor.fit(): Melatih model dengan data latih (X_train sebagai fitur dan 
+y_train sebagai label). 
+ 
+Prediksi: Gunakan model yang sudah dilatih untuk memprediksi probabilitas pada data 
+uji. 
+ 
+ΓùÅΓÇï predict(X_test): Menghasilkan prediksi berdasarkan data uji (X_test). Hasil prediksi 
+disimpan dalam y_pred_log. 
+ 
+Intercept dan Koefisien : Setelah melatih model, kita dapat memperoleh intercept (titik 
+potong garis regresi dengan sumbu Y) dan koefisien (pengaruh setiap variabel input 
+terhadap hasil prediksi). 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 51 ---
+ 
+ 
+ 
+ΓùÅΓÇï Intercept (): Konstanta dalam model, menunjukkan prediksi ketika semua fitur 
+bernilai nol. 
+ΓùÅΓÇï Koefisien (): Pengaruh masing-masing fitur terhadap prediksi. Koefisien positif 
+meningkatkan prediksi, sedangkan negatif menurunkannya. 
+ 
+p-value : digunakan untuk menguji signifikansi koefisien. 
+ 
+ΓùÅΓÇï p-value: Menunjukkan signifikansi koefisien. Jika p-value < 0.05, koefisien 
+signifikan; jika > 0.05, koefisien tidak signifikan. 
+ 
+D.ΓÇï Lasso Regression 
+Apa Itu Lasso Regression 
+Regresi Lasso (Least Absolute Shrinkage and Selection Operator) adalah metode regresi 
+linear yang mengintegrasikan regularisasi untuk mengurangi kompleksitas model. 
+Dengan menambahkan penalti pada fungsi biaya, Lasso mendorong beberapa koefisien 
+prediktor menjadi nol, yang berfungsi sebagai teknik seleksi fitur otomatis. Ini  
+memastikan hanya variabel yang paling relevan yang dipertahankan dalam model. 
+Berbeda dengan regresi linear tradisional, yang mempertimbangkan semua variabel  
+ 
+
+
+--- Page 52 ---
+ 
+independen, Lasso efektif dalam menangani data dengan banyak fitur dan variabel yang 
+mungkin tidak relevan. Dengan menyusutkan koefisien-koefisien yang kurang penting, 
+Lasso membantu menghindari overfitting dan menghasilkan model yang lebih sederhana 
+dan lebih mudah diinterpretasi. 
+Formula: 
+ 
+ΓùÅΓÇï n mewakili jumlah pengamatan. 
+ΓùÅΓÇï p menyatakan jumlah variabel yang tersedia dalam dataset. 
+ΓùÅΓÇï Xij  mewakili nilai variabel ke-j untuk pengamatan ke-i, di mana i = 1, 2, ..., n 
+dan j = 1, 2, ..., p 
+╬▒ (alfa) dapat mengambil berbagai nilai: 
+ΓùÅΓÇï ╬▒ = 0: Koefisien sama dengan regresi linear kuadrat terkecil 
+ΓùÅΓÇï ╬▒ = Γê₧: Semua koefisien adalah nol 
+ΓùÅΓÇï 0 < ╬▒ < Γê₧: Koefisien berada di antara 0 dan regresi linear kuadrat terkecil: 
+ 
+Kenapa Menggunakan Lasso Regression 
+Regresi Lasso cocok digunakan saat kita ingin melakukan seleksi fitur otomatis sebagai 
+bagian dari pemodelan. Dengan menyusutkan nilai-nilai koefisien fitur yang kurang 
+penting menjadi nol, regresi Lasso membantu menciptakan model yang lebih sederhana 
+dan mudah diinterpretasikan, sekaligus mencegah overfitting. Model ini efisien secara 
+komputasi, terutama ketika bekerja dengan data berdimensi tinggi dan fitur yang saling 
+terkait. Regresi Lasso adalah pilihan tepat untuk kasus dimana kita membutuhkan model 
+yang lebih sederhana dengan kinerja optimal. 
+ 
+Implementasi Code 
+Import Library yang akan digunakan: Langkah pertama adalah mengimpor pustaka 
+yang dibutuhkan untuk melakukan regresi Lasso dan mengevaluasi kinerjanya. 
+
+
+--- Page 53 ---
+ 
+ΓùÅΓÇï Lasso: Algoritma regresi Lasso dari scikit-learn yang akan kita gunakan untuk model 
+regresi. 
+ΓùÅΓÇï Mean_squared_error Untuk menghitung rata-rata kesalahan kuadrat yang akan 
+digunakan untuk mengevaluasi model. 
+ΓùÅΓÇï Train_test_split: Untuk membagi data menjadi data latih dan data uji. 
+ 
+Persiapan Data: Pisahkan variabel independen (fitur) dan variabel dependen (label). 
+Dalam contoh ini: 
+Variabel independen: semua variable selain BloodSugarLevel dan PatientID. 
+Variabel dependen: BloodSugarLevel. 
+ 
+ 
+Pembagian Data: Bagi data menjadi data latih dan data uji untuk melatih model dan 
+mengukur akurasi model. 
+ 
+ 
+ 
+
+
+--- Page 54 ---
+ 
+ 
+Pelatihan Model: Latih model menggunakan data train. Regresi Lasso menambahkan 
+regularisasi L1 yang dapat mengurangi beberapa koefisien variabel menjadi nol, yang 
+secara efektif mengurangi kompleksitas model. 
+ 
+ 
+Prediksi: Gunakan model yang sudah dilatih untuk memprediksi probabilitas pada data 
+uji. 
+ 
+ 
+
+
+--- Page 55 ---
+ 
+CLUSTERING 
+ 
+Clustering adalah proses mengelompokkan data ke dalam beberapa grup (cluster) 
+berdasarkan kemiripan antar objek dalam grup tersebut. Tujuannya adalah agar objek dalam 
+satu cluster memiliki kesamaan yang tinggi, sementara objek di cluster lain sangat berbeda. 
+Proses ini sering melibatkan pengukuran jarak antara data dalam dataset. Metode clustering 
+yang baik akan menghasilkan cluster dengan anggota yang serupa (intra-class similarity 
+tinggi) dan membedakan cluster satu dengan lainnya (inter-class similarity rendah). Kualitas 
+cluster ditentukan oleh seberapa baik metode tersebut menangkap pola dalam data 
+menggunakan ukuran kemiripan, yang sering kali diukur dengan jarak antar objek. Tujuan 
+melakukan clustering atau pengelompokkan dibedakan menjadi dua persepsi, yaitu clustering 
+untuk pemahaman dan clustering untuk penggunaan. Proses clustering untuk tujuan 
+pemahaman hanya sebagai proses awal sebelum melakukan summarization (rata-rata, standar 
+deviasi), serta pelabelan kelas untuk setiap kelompok sehingga dapat digunakan sebagai data 
+training dalam klasifikasi supervised. Sedangkan proses clustering untuk tujuan penggunaan 
+biasanya untuk mencari prototipe kelompok yang paling merepresentasikan data serta 
+memberikan abstraksi dari setiap objek data dalam suatu dataset. 
+A.ΓÇï Hierarchical Clustering 
+Hierarchical clustering penglompokkan data dilakukan dengan membuat suatu bagan 
+hirarki (dendogram) untuk menunjukkan kemiripan antar data. Dalam konteks ini, 
+suatu cluster kecil dapat menjadi bagian dari cluster yang lebih besar sehingga 
+mencipatkan struktur yang berlapis. Beberapa algoritma yang termasuk ke dalam 
+metode ini adalah DIANA, AGNES, BIRCH, ROCK, dan CAMELEON. Metode ini 
+dikelompokkan menjadi dua pendekatan, yaitu agglomerative (penggabungan) dan 
+divisive (pemisahan). 
+a.ΓÇï AGNES (Agglomerative Nesting) 
+Metode agglomerative merupakan pendekatan dari metode hierarchical clustering 
+yang menggunakan strategi penggabungan dari bawah ke atas. Metode ini dimulai 
+dengan menggabungkan setiap objek membentuk cluster sendiri dan secara iteratif 
+menggabungkan cluster-cluster tersebut ke dalam cluster yang lebih besar hingga  
+
+
+--- Page 56 ---
+ 
+ 
+semua objek data berada dalam satu cluster. Dengan demikian, metode agglomerative 
+membutuhkan paling banyak n iterasi tergantung dari jumlah objek datanya. 
+ 
+Dendrogram Complete Linkage Clustering 
+Complete linkage clustering adalah salah satu metode dalam hierarchical clustering 
+yang mengukur jarak antara dua cluster dengan cara mencari jarak maksimum antara 
+setiap titik data dalam cluster pertama dan titik data dalam cluster kedua. Metode ini 
+merupakan pendekatan agglomerative, di mana setiap elemen awalnya berada dalam 
+cluster terpisah dan kemudian digabungkan berdasarkan jarak antar cluster tersebut. 
+ 
+Metode terbaik untuk menentukan jumlah klaster adalah dengan mengamati 
+dendrogram dan memilih nilai tertentu sebagai titik cut-off (secara manual). Jumlah 
+perpotongan antara garis vertikal dan garis horizontal yang dibuat pada dendrogram 
+akan menunjukkan jumlah klaster. Pada gambar di atas dengan memilih titik cut-off di 
+52, kita akan memperoleh 3 klaster yang berbeda, yaitu (Dave), (Ben, Eric), dan 
+(Anne, Chad). 
+ 
+Variasi dalam Penggabungan Cluster 
+Hierarki agglomerative clustering adalah metode bottom-up yang bertujuan 
+menggabungkan n cluster hingga terbentuk satu cluster tunggal. Teknik-teknik 
+pengelompokan antar cluster yang umum digunakan adalah sebagai berikut: 
+
+
+--- Page 57 ---
+ 
+ 
+1.ΓÇï Single Linkage 
+Single Linkage adalah metode analisis hierarki yang mengelompokkan objek 
+berdasarkan jarak terpendek antar objek terlebih dahulu. Jarak pada metode ini 
+dapat dihitung menggunakan rumus berikut: 
+ΓÇï≡¥ææ≡¥æñ(≡¥æû,≡¥æù) = ≡¥æÜax{≡¥ææ≡¥æñ≡¥æû, ≡¥ææ≡¥æñ≡¥æù) 
+di mana ≡¥ææ≡¥æñ(≡¥æû,≡¥æù) adalah ukuran kesamaan antara kelompok ke-w dengan kelompok 
+(i,j), yaitu hasil penggabungan antara kelompok ke-i dan kelompok ke-j. 
+2.ΓÇï Complete Linkage 
+Complete Linkage mengelompokkan berdasarkan jarak terjauh antar objek dalam 
+setiap cluster. Jarak antar cluster diperoleh dari perhitungan objek dengan jarak 
+paling jauh. Rumus untuk menentukan jarak tersebut adalah sebagai berikut: 
+ΓÇï≡¥ææ≡¥æñ(≡¥æû,≡¥æù) = ≡¥æÜ≡¥æû≡¥æ¢{≡¥ææ≡¥æñ≡¥æû, ≡¥ææ≡¥æñ≡¥æù) 
+di mana ≡¥ææ≡¥æñ(≡¥æû,≡¥æù) adalah ukuran kesamaan antara kelompok ke-w dengan kelompok 
+(i,j), yaitu hasil penggabungan antara kelompok ke-i dan kelompok ke-j. 
+3.ΓÇï Average Linkage 
+Average Linkage menggunakan rata-rata perbedaan jarak individu di satu 
+kelompok dengan seluruh individu di kelompok lain. Jarak pada metode ini dapat 
+dihitung menggunakan rumus berikut: 
+ 
+di mana ≡¥ææ≡¥æñ(≡¥æû,≡¥æù)menunjukkan ukuran kesamaan antara kelompok ke-www dan 
+kelompok (i,j), yang merupakan hasil penggabungan kelompok ke-i dan ke-j 
+(disimbolkan sebagai kelompok ij). ≡¥æ¢(≡¥æû≡¥æù) dan ≡¥æ¢≡¥æñ adalah jumlah pengamatan dalam 
+kelompok ij dan w, sedangkan ≡¥ææ≡¥æ₧≡¥æƒ adalah jarak antara pengamatan ke-q dalam 
+kelompok ij dan pengamatan ke-r dalam kelompok w. 
+A.ΓÇï Study Case 
+Study Case: Identifikasi Risiko Diabetes dan Obesitas Berdasarkan Profil 
+BMI dan Gula Darah di Klinik Kesehatan. 
+
+
+--- Page 58 ---
+ 
+ 
+Deskripsi: 
+Pada studi kasus ini, variabel yang digunakan adalah BMI dan Blood Sugar 
+Level. BMI adalah pengukuran yang menunjukkan apakah seseorang memiliki 
+berat badan yang sesuai dengan tinggi badannya, sedangkan Blood Sugar 
+Level mengukur kadar glukosa dalam darah yang dapat mencerminkan risiko 
+kesehatan terkait metabolisme. 
+Tujuan: 
+Analisis ini adalah untuk mengidentifikasi individu berdasarkan tingkat risiko 
+kesehatan mereka menggunakan klusterisasi BMI dan gula darah. Sehingga 
+dapat berfungsi sebagai alat pemantauan jangka panjang untuk membantu 
+manajemen kesehatan berkelanjutan dengan pendekatan yang lebih proaktif. 
+B.ΓÇï Penjelasan 
+a.ΓÇï Import Libraries 
+ 
+b.ΓÇï Load Data 
+ 
+Deskripsi:  
+data_path menyimpan path file dataset. Setelah itu, pd.read_csv (data_path) 
+membaca data dari file CSV dan X memilih kolom BMI dan 
+BloodSugarLevel dari data untuk digunakan dalam clustering. 
+ 
+
+
+--- Page 59 ---
+ 
+c.ΓÇï Standarisasi Data 
+ 
+Deskripsi: 
+Data pada X dinormalisasi dengan StandardScaler agar tiap fitur memiliki 
+skala yang sama (mean=0 dan std=1), penting jika fitur memiliki skala yang 
+berbeda. Hasilnya disimpan pada X_scaled. 
+d.ΓÇï Dendogram untuk AGNES 
+ 
+Deskripsi: 
+Fungsi 
+sch.dendrogram 
+(sch.linkage 
+(X_scaled, 
+method='average')) 
+menghasilkan dendrogram dengan metode 'average' untuk menghitung jarak 
+antar kelompok. Dendrogram ini menunjukkan proses pengelompokan data 
+dari level individu hingga terbentuknya satu cluster besar, membantu dalam 
+menentukan jumlah cluster optimal berdasarkan jarak antar node. 
+ 
+
+
+--- Page 60 ---
+ 
+Output: 
+ 
+e.ΓÇï Melakukan Clustering AGNES dan Evaluasi dengan Silhouette Score 
+ 
+Deskripsi: 
+Langkah selanjutnya adalah memulai model AGNES dengan jumlah cluster 
+n_clusters 
+(misalnya 
+3) 
+dan 
+metode 
+linkage 
+'average'. 
+Model 
+AgglomerativeClustering ini akan mengelompokkan data pada X_scaled 
+dan menyimpan label cluster di cluster_labels, yang menunjukkan 
+keanggotaan tiap data. 
+f.ΓÇï Menghitung Silhouette Score 
+ 
+Deskripsi: 
+Kualitas clustering dievaluasi dengan silhouette_score, yang mengukur 
+seberapa baik tiap data berada dalam clusternya dibandingkan dengan 
+cluster lain. Skor yang lebih tinggi menunjukkan kualitas cluster yang lebih 
+
+
+--- Page 61 ---
+baik. Hasilnya dicetak untuk memberi wawasan apakah jumlah cluster 
+sudah optimal atau perlu disesuaikan. 
+g.ΓÇï Memvisualisasikan Hasil Clustering 
+ 
+Deskripsi: 
+Langkah terakhir adalah memvisualisasikan hasil clustering dalam scatter 
+plot. Dengan ukuran plot yang diatur, data diplot berdasarkan `BMI` 
+(sumbu x) dan `BloodSugarLevel` (sumbu y), dan tiap cluster ditandai 
+warna berbeda (c=cluster_labels). `plt.colorbar` ditambahkan untuk 
+menunjukkan label cluster, memberikan gambaran distribusi akhir data 
+dalam cluster. 
+Output: 
+ 
+ 
+
+
+--- Page 62 ---
+ 
+Deskripsi: 
+Hasil klusterisasi AGNES pada plot menunjukkan tiga kelompok berdasarkan 
+BMI dan Blood Sugar Level: 
+ΓùÅΓÇï Kluster Ungu (Label 0): Mencakup individu dengan BMI dan gula darah 
+rata-rata lebih rendah. 
+ΓùÅΓÇï Kluster Kuning (Label 1): Berisi individu dengan gula darah lebih tinggi, 
+menunjukkan potensi risiko kesehatan, seperti diabetes. 
+ΓùÅΓÇï Kluster Hijau-Biru (Label 2): Mengelompokkan individu dengan BMI 
+tinggi dan variasi gula darah, yang bisa terkait dengan risiko kesehatan 
+kronis, seperti diabetes tipe 2. 
+b.ΓÇïDIANA (Divisive Analysis) 
+Metode divisive merupakan pendekatan dari metode hierarchical clustering yang 
+menggunakan strategi pemisahan dari atas ke bawah. Metode ini dimulai dengan 
+menempatkan semua objek data dalam satu cluster yang merupakan akat hierarki. 
+Kemudian membagi akar cluster tersebut ke beberapa cluster yang lebih kecil dan 
+secara rekursif akan mempartisi atau memisahkan cluster-cluster tersebut menjadi 
+cluster yang lebih kecil lagi. Proses pemisahan berlanjut hingga cluster terendah yang 
+hanya berisi satu objek data saja atau objek-objek di dalam sebuah cluster yang mirip 
+satu sama lain. 
+Hasil clustering dengan metode ini digambarkan dalam bentuk dendogram. Root pada 
+dendogram merupakan keseluruhan dataset dan setiap cabang merupakan data point 
+sesuai dengan level-level dari hasil clustering. 
+ 
+ 
+ 
+
+
+--- Page 63 ---
+ 
+ 
+Gambar di atas menunjukkan dendogram untuk lima data, yaitu a, b, c, , dan e, di 
+mana l=0 menunjukkan kelima objek sebagai cluster tunggal pada level 0. Pada l=1, 
+objek a dan b dikelompokkan bersama untuk membentuk cluster pertama, dan mereka 
+tetap bersama di semua level berikutnya. Kemudian dapat menggunakan sumbu 
+vertikal untuk menunjukkan skala kemiripan antar cluster. Sebagai contoh, ketika 
+kemiripan dua kelompok objek, a, b dan c, d, e, adalah sekitar 0.16, mereka 
+digabungkan bersama untuk membentuk satu cluster. 
+ 
+B.ΓÇï Partitional Clustering 
+Partitional 
+clustering 
+merupakan 
+pengelompokkan 
+data 
+dilakukan 
+dengan 
+mengelompokkan data point ke dalam k cluster tanpa struktur hirarki. Metode ini 
+membagi dataset ke dalam sejumlah kelompok yang tidak saling tumpang tindih antara 
+satu cluster dengan cluster lainnya. Dengan demikian, setiap data hanya termasuk ke 
+dalam satu cluster. Beberapa algoritma yang termasuk ke dalam metode ini adalah 
+K-Means, K-Medoids, dan CLARANS. 
+a.ΓÇï K-Means 
+Menurut Amalina et al. (2019), K-Means Clustering adalah metode pengelompokan 
+data non-hirarki yang membagi data ke dalam beberapa klaster. Teknik ini 
+mengelompokkan data dengan karakteristik serupa ke dalam satu klaster dan 
+memisahkan data dengan karakteristik berbeda ke klaster lain. Dalam K-Means 
+Clustering, "K" adalah konstanta yang menunjukkan jumlah klaster yang diinginkan, 
+sedangkan "Means" merujuk pada nilai rata-rata dari setiap kelompok data yang 
+diidentifikasi sebagai klaster. 
+ 
+
+
+--- Page 64 ---
+ 
+ 
+Metode K-Means mengelompokkan data ke dalam klaster dengan tujuan 
+meminimalkan jarak kuadrat antara titik data dan pusat klaster. Setiap klaster berisi 
+titik data yang serupa, sedangkan antar klaster memiliki perbedaan. Namun, algoritma 
+ini sangat bergantung pada inisialisasi klaster, yang dapat mempengaruhi hasil akhir. 
+ 
+(≡¥æÑ1 ΓêÆ ≡¥æÑ2)
+2 + (≡¥æª1 ΓêÆ ≡¥æª2)
+2
+Observation A = (X1, Y1)  
+Observation B = (X2, Y2) 
+ 
+Elbow Method 
+ 
+Metode Elbow adalah teknik yang digunakan untuk menentukan jumlah cluster yang 
+optimal dengan mengamati persentase perbandingan antar jumlah cluster yang 
+membentuk pola mirip siku pada suatu titik tertentu. Jika perbedaan antara cluster 
+pertama dan kedua menghasilkan sudut pada grafik atau menunjukkan penurunan 
+yang paling signifikan, maka jumlah cluster pada titik tersebut dianggap optimal. 
+Perbandingan ini dilakukan dengan menghitung Sum of Square Error (SSE) dari tiap 
+cluster, karena semakin besar jumlah cluster K, semakin kecil nilai SSE yang 
+dihasilkan.
+ 
+
+
+--- Page 65 ---
+ 
+ 
+A.ΓÇï Study Case 
+Study Case: Analisis Risiko Kesehatan Berdasarkan BMI dan Tingkat Gula 
+Darah 
+Deskripsi: 
+Studi ini dapat digunakan dalam analisis risiko kesehatan untuk mengidentifikasi 
+kelompok-kelompok populasi berdasarkan BMI dan tingkat gula darah. Dengan 
+demikian, dapat membantu dalam mendiagnosis atau mengklasifikasikan tingkat 
+risiko kesehatan terkait obesitas dan diabetes. 
+Tujuan: 
+Mengidentifikasi pola atau klaster dalam data yang menunjukkan perbedaan 
+karakteristik antaa kelompok dengan ΓÇÿBMIΓÇÖ dan ΓÇÿBloodSugarLevelΓÇÖ tertentu. 
+B.ΓÇï Penjelasan 
+a.ΓÇï Import Libraries 
+ 
+b.ΓÇï Read Data 
+ 
+Deskripsi: 
+Membaca data dari file CSV data_modul_2.csv ke dalam DataFrame data. 
+
+
+--- Page 66 ---
+ 
+ 
+c.ΓÇï Mendefinisikan Fitur untuk Klasterisasi 
+ 
+Deskripsi: 
+Di sini kita memilih kolom BMI dan BloodSugarLevel sebagai fitur yang akan 
+digunakan untuk klasterisasi. 
+d.ΓÇï Standarisasi Data 
+ 
+Deskripsi: 
+Standarisasi data menggunakan StandardScaler, agar fitur BMI dan 
+BloodSugarLevel memiliki rata-rata 0 dan standar deviasi 1. 
+e.ΓÇï Visualisasi Sebaran Data Awal 
+ 
+Deskripsi: 
+Membuat scatter plot untuk melihat sebaran awal data berdasarkan BMI dan 
+BloodSugarLevel. 
+
+
+--- Page 67 ---
+ 
+Output: 
+ 
+Scatter plot di atas menunjukkan sebaran data berdasarkan dua variabel, yaitu 
+BMI (Body Mass Index) pada sumbu x dan Blood Sugar Level (Tingkat Gula 
+Darah) pada sumbu y. Secara keseluruhan, plot ini memberikan gambaran 
+mengenai sebaran individu dalam dataset berdasarkan BMI dan tingkat gula 
+darah, dengan mayoritas data terkonsentrasi pada BMI sedang dan tingkat gula 
+darah normal atau sedikit di atas normal. 
+f.ΓÇï Elbow Method untuk Menentukan Jumlah Klaster 
+ 
+Deskripsi: 
+Bagian ini menggunakan Metode Elbow untuk menentukan jumlah klaster 
+optimal. WCSS (Within-Cluster Sum of Squares) dihitung untuk berbagai nilai 
+K. Nilai K yang optimal terlihat ketika grafik WCSS mulai rata. 
+ 
+ 
+
+
+--- Page 68 ---
+ 
+ 
+g.ΓÇï Plot Hasil Metode Elbow 
+ 
+Deskripsi: 
+Grafik Elbow Method untuk memvisualisasikan penurunan WCSS dengan 
+bertambahnya jumlah klaster. Titik elbow akan menunjukkan jumlah klaster 
+yang optimal. 
+Output: 
+ 
+Gambar di atas menunjukkan Elbow Method untuk menentukan jumlah klaster 
+optimal berdasarkan Within-Cluster Sum of Squares (WCSS). Pada grafik ini, 
+terlihat bahwa penurunan WCSS yang signifikan terjadi antara jumlah klaster 
+
+
+--- Page 69 ---
+2 dan 4. Setelah klaster ke-3 atau ke-4, penurunan WCSS mulai melandai, 
+menunjukkan bahwa penambahan klaster tidak lagi memberikan peningkatan 
+yang signifikan pada pemisahan data. 
+h.ΓÇï Melakukan K-Means dengan K Optimal 
+ 
+Deskripsi: 
+Menentukan K optimal (contohnya 3) berdasarkan hasil dari Metode Elbow. 
+K-Means diterapkan pada data yang sudah diskalakan, dan label klaster 
+disimpan di variabel labels. 
+i.ΓÇï Menghitung Silhouette Score 
+ 
+Deskripsi: 
+Menghitung skor Silhouette untuk mengevaluasi kualitas klaster. Skor ini 
+mengukur seberapa baik data dalam klaster tersebut dan seberapa jauh klaster 
+lainnya. Nilai mendekati 1 menunjukkan klaster yang baik. 
+j.ΓÇï Menyimpan Label Klaster di DataFrame 
+ 
+ 
+
+
+--- Page 70 ---
+Deskripsi: 
+Menyimpan hasil klasterisasi (labels) ke dalam kolom Cluster pada DataFrame 
+data. 
+k.ΓÇï Visualisasi Hasil Klasterisasi, Menghitung dan Menampilkan Centroid Cluster 
+ 
+Deskripsi: 
+Membuat scatter plot dengan seaborn untuk memvisualisasikan hasil 
+klasterisasi, dimana setiap klaster memiliki warna berbeda. Menghitung 
+centroid setiap klaster (titik tengah klaster) dan menampilkan centroid tersebut 
+pada plot. inverse_transform digunakan agar centroid kembali dalam skala asli 
+data sebelum standarisasi. 
+Output: 
+ 
+ 
+
+
+--- Page 71 ---
+ 
+Deskripsi: 
+ΓùÅΓÇï Klaster 0: Individu dalam klaster ini mungkin berada pada risiko lebih 
+rendah terhadap kondisi terkait obesitas atau diabetes karena memiliki 
+BMI dan BloodSugarLevel yang lebih rendah. 
+ΓùÅΓÇï Klaster 1: Individu dalam klaster ini memiliki risiko yang mungkin 
+lebih tinggi terhadap diabetes atau masalah gula darah, karena 
+memiliki BloodSugarLevel yang tinggi meskipun BMI beragam. 
+ΓùÅΓÇï Klaster 2: Individu dengan BMI tinggi dan BloodSugarLevel 
+menengah dapat mengarah ke risiko masalah kesehatan tertentu yang 
+terkait dengan obesitas tetapi bukan masalah gula darah tinggi. 
+ 
+C.ΓÇï Density-Based Clustering 
+Metode dentity-based clustering adalah metode pengelompokkan objek data yang 
+berbasis kepadatan dalam ruang antar data sehingga memiliki bentuk cluster yang 
+berubah-ubah. Sebuah cluster terbentuk di area dengan kepadatan data tinggi dan area 
+dengan kepadatan rendah akan dianggap sebagai pembatas antar cluster atau dianggap 
+sebagai outlier. Beberapa algoritma yang termasuk ke dalam metode ini adalah 
+DBSCAN, OPTICS, dan DenClue. 
+a.ΓÇï DBSCAN (Density-Based Spatial Clustering of Application with Noise) 
+DBSCAN merupakan metode pengelompokkan data berbasis kepadatan yang 
+mendefinisikan objek yang membentuk area padat sebagai bagian dari cluster yang 
+sama. Objek yang tidak termasuk ke dalam area dengan kepadatan tinggi akan 
+dianggap sebagai noise atau outlier. Sebuah instance inti p merupakan instance 
+yang mencapai jumlah minimum dari instance lainnya. Untuk dianggap ΓÇ£dapat 
+dijangkau secara langsungΓÇ¥, sebuah instance q harus berada pada jarak yang lebih 
+rendah dari p daripada ambang batas yang telah ditentukan (dilambangkan dengan 
+epsilon). Jika p adalah sebuah instance inti, maka ia membentuk sebuah cluster 
+bersama dengan semua instance yang dapat dijangkau darinya, baik secara 
+langsung maupun tidak langsung. Setiap cluster berisi setidaknya satu instance inti. 
+Gambar di bawah menunjukkan adanya satu cluster (Carolina, Fred, Gwyneth, 
+Hayden, Irene dan James) dan empat outlier (Andrew, Bernhard, Dennis dan Eve). 
+
+
+--- Page 72 ---
+ 
+Menilai dan mengevaluasi hasil DBSCAN tidak memiliki karakteristik khusus. 
+Tidak ada centroid atau pusat dalam DBSCAN sehingga instance dari setiap cluster 
+dapat dinilai. Mengatur hyper-parameter utama dari DBSCAN adalah jumlah 
+minimum instance yang diperlukan untuk mengklasifikasikan sebuah instance 
+sebagai inti atau core dan jarak maksimum sebuah instance untuk dapat dianggap 
+ΓÇ£dapat dijangkau secara langsungΓÇ¥. Ukuran jarak juga merupakan hyper-parameter 
+yang harus dipilih tergantung pada jenis skala atribut data. 
+ 
+
+
+--- Page 73 ---
+ 
+ 
+K-Nearest Neighbors 
+ 
+K-Nearest Neighbor Distance (kNNdist) adalah metode untuk menghitung jarak 
+cepat antara titik dan tetangga k-terdekat dalam matriks titik. Plot kNNdist dapat 
+digunakan untuk membantu menentukan nilai eps yang optimal untuk DBSCAN. 
+Pada plot kNNdist, nilai eps yang tepat dapat ditemukan karena akan menunjukkan 
+titik optimal untuk pengelompokan. 
+A.ΓÇï Study Case 
+Study Case: Identifikasi Kelompok Risiko Kesehatan Berdasarkan BMI dan 
+Kadar Gula Darah. 
+Deskripsi: 
+Mengidentifikasi pola kelompok berdasarkan indeks massa tubuh (BMI) dan kadar 
+gula darah. Penggunaan algoritma DBSCAN memungkinkan kita untuk 
+menemukan 
+pola 
+atau 
+kelompok 
+yang 
+alami 
+dalam 
+data, 
+sekaligus 
+mengidentifikasi outlier atau individu yang memiliki nilai yang signifikan berbeda 
+dari populasi umum 
+Tujuan: 
+Tujuan dari analisis ini adalah untuk memahami pola kesehatan dalam populasi 
+dengan mengkaji hubungan antara indeks massa tubuh (BMI) dan kadar gula 
+darah. Melalui pemahaman pola umum ini, kita dapat mengidentifikasi kelompok 
+risiko rendah, sedang, dan tinggi berdasarkan kombinasi antar variabel.
+ 
+
+
+--- Page 74 ---
+ 
+ 
+B.ΓÇï Penjelasan 
+a.ΓÇï Import Libraries 
+ 
+b.ΓÇï Load Dataset 
+ 
+Deskripsi: 
+Data dari data_modul_2.csv dibaca ke dalam DataFrame data. Kemudian, 
+kolom BMI dan BloodSugarLevel diseleksi dan disimpan dalam variabel X, 
+yang akan digunakan untuk proses clustering. 
+c.ΓÇï Normalisasi Data 
+ 
+Deskripsi: 
+Data X dinormalisasi menggunakan StandardScaler, agar setiap fitur memiliki 
+nilai rata-rata 0 dan standar deviasi 1. Ini penting dalam DBSCAN untuk 
+
+
+--- Page 75 ---
+memperlakukan setiap fitur dengan skala yang seimbang. X_scaled adalah data 
+hasil normalisasi. 
+d.ΓÇï Find Nearest Neighbors 
+ 
+Deskripsi: 
+Tentukan jumlah tetangga terdekat (k) yang akan digunakan untuk menentukan 
+parameter eps. Di sini, k dipilih 4. NearestNeighbors digunakan untuk mencari 
+jarak antara setiap titik ke tetangga terdekat. ke-4. 
+e.ΓÇï Sort Distance 
+ 
+Deskripsi: 
+Jarak yang ditemukan di langkah sebelumnya diurutkan berdasarkan jarak 
+tetangga ke-4 dari setiap titik. Pengurutan ini membantu dalam menemukan 
+elbow point pada grafik jarak, yang dapat digunakan untuk menentukan nilai 
+eps. 
+ 
+ 
+
+
+--- Page 76 ---
+ 
+ 
+f.ΓÇï Plot K-Distance Graph 
+ 
+Deskripsi: 
+Grafik k-distance digambar untuk melihat titik bahu (elbow point). Titik ini 
+menunjukkan jarak optimal sebagai parameter eps untuk DBSCAN.  
+Output: 
+ 
+Dari grafik k-Distance, terdapat titik elbow di mana jarak mulai meningkat 
+tajam. Memilih eps = 0.5 dan min_samples = 5 memungkinkan DBSCAN untuk 
+secara efektif membedakan kluster padat dari anomali. Nilai eps dipilih 
+berdasarkan titik di mana kurva mulai naik tajam, menunjukkan jarak yang lebih 
+besar ke tetangga. Titik-titik yang tidak memiliki cukup tetangga dalam radius 
+0.5 akan dianggap sebagai anomali. 
+
+
+--- Page 77 ---
+ 
+ 
+g.ΓÇï Set Parameters untuk DBSCAN 
+ 
+Deskripsi: 
+Nilai eps (jarak maksimum untuk memasukkan titik dalam cluster) ditentukan 
+berdasarkan elbow point dari grafik k-distance, dan min_samples diatur ke 5. 
+h.ΓÇï Inisialisasi dan Penyesuaian Model DBSCAN 
+ 
+Deskripsi: 
+Model DBSCAN diinisialisasi dengan parameter eps dan min_samples, 
+kemudian dipasangkan ke data yang telah dinormalisasi (X_scaled). 
+i.ΓÇï Tambahkan Label Cluster ke Data 
+ 
+ 
+
+
+--- Page 78 ---
+ 
+Deskripsi: 
+Label hasil clustering (labels) ditambahkan ke DataFrame data dalam kolom 
+Cluster. Label ini menunjukkan cluster yang dihasilkan untuk setiap data; -1 
+berarti data tersebut dianggap sebagai noise. 
+j.ΓÇï Periksa Distribusi Cluster 
+ 
+Deskripsi: 
+Melihat jumlah data dalam setiap cluster, termasuk data yang dianggap noise. 
+Output: 
+ 
+k.ΓÇï Hasil Pengelompokan Plot 
+ 
+Deskripsi: 
+Visualisasi hasil clustering menggunakan scatter plot. Setiap titik data diberi 
+warna sesuai dengan cluster yang dihasilkan. Data noise berwarna berbeda 
+untuk memudahkan identifikasi. 
+ 
+
+
+--- Page 79 ---
+ 
+Output: 
+ 
+Deskripsi: 
+Grafik hasil DBSCAN clustering pada data 'BMI' dan 'BloodSugarLevel' 
+menunjukkan bahwa terdapat dua kelompok utama: 
+ΓùÅΓÇï Cluster 0 (Kuning) - Sebagian besar data termasuk dalam cluster ini, yang 
+mengindikasikan bahwa sebagian besar individu memiliki pola yang serupa 
+pada nilai BMI dan Blood Sugar Level. Ini mungkin merupakan kelompok 
+utama dalam populasi yang dianalisis, dengan rentang BMI sekitar 15 hingga 
+45 dan Blood Sugar Level antara 70 hingga 200. 
+ΓùÅΓÇï  Cluster -1 (Outlier, Ungu) - Beberapa titik data berada di luar cluster utama 
+(diidentifikasi oleh DBSCAN sebagai outlier dengan label -1). Outlier ini 
+mungkin mewakili individu dengan nilai BMI atau Blood Sugar Level yang 
+sangat tinggi, yang secara statistik berbeda dari populasi utama. 
+ 
+
+
+--- Page 80 ---
+ 
+REFERENSI 
+ 
+GeeksforGeeks. (n.d.). Types of regression techniques. GeeksforGeeks. Retrieved April, 
+2025, from https://www.geeksforgeeks.org/types-of-regression-techniques/  
+ 
+GeeksforGeeks. (n.d.). Clustering in machine learning. GeeksforGeeks. Retrieved April, 
+2025, from https://www.geeksforgeeks.org/clustering-in-machine-learning/  
+ 
+Nugroho, K. S. (2020, June 28). Confusion matrix untuk evaluasi model pada unsupervised 
+machine 
+learning. 
+Medium. 
+Retrieved 
+April, 
+2025, 
+from 
+https://ksnugroho.medium.com/confusion-matrix-untuk-evaluasi-model-pada-unsupervised-
+machine-learning-bc4b1ae9ae3f  
+ 
+Dicoding. (2021, June 7). Machine learning workflow: Langkah-langkah praktis untuk 
+membangun 
+model 
+AI. 
+Dicoding 
+Blog. 
+Retrieved 
+April, 
+2025, 
+from 
+https://www.dicoding.com/blog/machine-learning-workflow-langkah-langkah-praktis-untuk-
+membangun-model-ai/  
+ 
+Esairina, N. (2021, September 28). Algoritma K-Nearest Neighbor (KNN): Penjelasan dan 
+implementasi 
+untuk 
+klasifikasi 
+kanker. 
+Medium. 
+Retrieved 
+April, 
+2025, 
+from 
+https://esairina.medium.com/algoritma-k-nearest-neighbor-knn-penjelasan-dan-implementasi-
+untuk-klasifikasi-kanker-ff9b7fbe0a4  
+ 
+Berdata. (2020, September 17). Memahami proses agglomerative clustering. Berdata. 
+Retrieved 
+April, 
+2025, 
+from 
+https://www.berdata.com/post/memahami-proses-agglomerative-clustering-1   
+ 
+ 
+ 
+

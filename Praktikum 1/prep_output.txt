@@ -1,0 +1,274 @@
+﻿======================================================================
+CELL 0 [code]
+======================================================================
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+======================================================================
+CELL 1 [code]
+======================================================================
+df = pd.read_csv('Teen_Mental_Health_Dataset.csv')
+
+
+======================================================================
+CELL 2 [code]
+======================================================================
+df.info()
+
+--- OUTPUT ---
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1200 entries, 0 to 1199
+Data columns (total 13 columns):
+ #   Column                    Non-Null Count  Dtype  
+---  ------                    --------------  -----  
+ 0   age                       1200 non-null   int64  
+ 1   gender                    1200 non-null   object 
+ 2   daily_social_media_hours  1200 non-null   float64
+ 3   platform_usage            1200 non-null   object 
+ 4   sleep_hours               1200 non-null   float64
+ 5   screen_time_before_sleep  1200 non-null   float64
+ 6   academic_performance      1200 non-null   float64
+ 7   physical_activity         1200 non-null   float64
+ 8   social_interaction_level  1200 non-null   object 
+ 9   stress_level              1200 non-null   int64  
+ 10  anxiety_level             1200 non-null   int64  
+ 11  addiction_level           1200 non-null   int64  
+ 12  depression_label          1200 non-null   int64  
+dtypes: float64(5), int64(5), object(3)
+memory usage: 122.0+ KB
+
+
+======================================================================
+CELL 3 [code]
+======================================================================
+df
+
+--- RESULT ---
+      age  gender  daily_social_media_hours platform_usage  sleep_hours  \
+0      14    male                       7.9      Instagram          7.4   
+1      19  female                       1.9         TikTok          8.0   
+2      17  female                       1.3      Instagram          7.6   
+3      15    male                       7.4         TikTok          6.9   
+4      15  female                       4.7           Both          4.9   
+...   ...     ...                       ...            ...          ...   
+1195   18  female                       6.8      Instagram          6.6   
+1196   16    male                       2.3           Both          8.0   
+1197   14  female                       1.7           Both          8.7   
+1198   15    male                       3.9           Both          8.5   
+1199   16  female                       4.7         TikTok          6.5   
+
+      screen_time_before_sleep  academic_performance  physical_activity  \
+0                       
+
+======================================================================
+CELL 4 [code]
+======================================================================
+df.dtypes
+
+--- RESULT ---
+age                           int64
+gender                       object
+daily_social_media_hours    float64
+platform_usage               object
+sleep_hours                 float64
+screen_time_before_sleep    float64
+academic_performance        float64
+physical_activity           float64
+social_interaction_level     object
+stress_level                  int64
+anxiety_level                 int64
+addiction_level               int64
+depression_label              int64
+dtype: object
+
+======================================================================
+CELL 5 [code]
+======================================================================
+df.describe()
+
+--- RESULT ---
+               age  daily_social_media_hours  sleep_hours  \
+count  1200.000000               1200.000000  1200.000000   
+mean     15.928333                  4.536667     6.449417   
+std       2.021947                  2.029599     1.442677   
+min      13.000000                  1.000000     4.000000   
+25%      14.000000                  2.800000     5.200000   
+50%      16.000000                  4.500000     6.500000   
+75%      18.000000                  6.300000     7.600000   
+max      19.000000                  8.000000     9.000000   
+
+       screen_time_before_sleep  academic_performance  physical_activity  \
+count               1200.000000           1200.000000        1200.000000   
+mean                   1.740333              2.990383           1.014500   
+std                    0.716660              0.576758           0.582185   
+min                    0.500000              2.000000           0.000000   
+25%                    1.100000              2.500000           0.5000
+
+======================================================================
+CELL 6 [code]
+======================================================================
+df.describe(include='object')
+
+--- RESULT ---
+       gender platform_usage social_interaction_level
+count    1200           1200                     1200
+unique      2              3                        3
+top      male      Instagram                   medium
+freq      615            411                      416
+
+======================================================================
+CELL 7 [code]
+======================================================================
+df.columns
+df.shape
+
+--- RESULT ---
+(1200, 13)
+
+======================================================================
+CELL 8 [code]
+======================================================================
+df['daily_social_media_hours'].unique()
+
+--- RESULT ---
+array([7.9, 1.9, 1.3, 7.4, 4.7, 2.5, 4. , 3.3, 7.2, 4.9, 6.2, 6.8, 5.7,
+       3.6, 1.5, 3.1, 6.7, 1.2, 3.4, 4.1, 5.3, 2.3, 2.4, 2. , 6.6, 1.6,
+       2.7, 5. , 4.6, 4.8, 6.3, 6.4, 7.3, 5.2, 4.5, 3.5, 2.9, 5.8, 7.1,
+       4.3, 3.9, 7.5, 6.9, 1.1, 2.6, 5.4, 5.6, 1.8, 8. , 5.1, 3.2, 7.7,
+       6.5, 7.8, 6. , 3.8, 2.1, 4.4, 3. , 7. , 7.6, 6.1, 5.9, 1.4, 4.2,
+       1.7, 2.8, 2.2, 3.7, 5.5, 1. ])
+
+======================================================================
+CELL 9 [code]
+======================================================================
+df['gender'].value_counts()
+
+--- RESULT ---
+male      615
+female    585
+Name: gender, dtype: int64
+
+======================================================================
+CELL 10 [code]
+======================================================================
+for i in df.columns:
+    sns.displot(df[i], bins=10, kde=False)
+    plt.show()
+
+======================================================================
+CELL 11 [markdown]
+======================================================================
+## Data Preprocessing
+
+======================================================================
+CELL 12 [code]
+======================================================================
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+
+le_gender = LabelEncoder()
+df['gender'] = le_gender.fit_transform(df['gender'])
+
+social_mapping = {'low': 0, 'medium': 1, 'high': 2}
+df['social_interaction_level'] = df['social_interaction_level'].map(social_mapping)
+
+df = pd.get_dummies(df, columns=['platform_usage'], prefix='platform')
+
+features_to_scale = ['age', 'daily_social_media_hours', 'sleep_hours', 'screen_time_before_sleep', 
+                     'academic_performance', 'physical_activity', 'stress_level', 
+                     'anxiety_level', 'addiction_level']
+
+scaler = StandardScaler()
+df[features_to_scale] = scaler.fit_transform(df[features_to_scale])
+
+df.head()
+
+--- RESULT ---
+        age  gender  daily_social_media_hours  sleep_hours  \
+0 -0.954099       1                  1.657833     0.659177   
+1  1.519796       0                 -1.299649     1.075244   
+2  0.530238       0                 -1.595397     0.797866   
+3 -0.459320       1                  1.411376     0.312455   
+4 -0.459320       0                  0.080509    -1.074435   
+
+   screen_time_before_sleep  academic_performance  physical_activity  \
+0                  1.618830              0.034026           0.834276   
+1                  1.618830              0.398282          -0.368593   
+2                 -1.731436              1.612470          -1.743301   
+3                 -0.195897              0.849266          -0.368593   
+4                  1.758424             -1.076088           0.662437   
+
+   social_interaction_level  stress_level  anxiety_level  addiction_level  \
+0                         0     -1.187367      -1.272335        -1.613389   
+1                         2      0.88011
+
+======================================================================
+CELL 13 [markdown]
+======================================================================
+## Correlation Analysis
+
+======================================================================
+CELL 14 [code]
+======================================================================
+plt.figure(figsize=(12, 10))
+sns.heatmap(df.corr(), annot=True, cmap='coolwarm', fmt='.2f')
+plt.title('Correlation Matrix after Preprocessing')
+plt.show()
+
+======================================================================
+CELL 15 [markdown]
+======================================================================
+## Data Cleaning
+
+======================================================================
+CELL 16 [code]
+======================================================================
+print("Jumlah Missing Values:\n", df.isnull().sum())
+
+duplicate_count = df.duplicated().sum()
+print(f"\nJumlah Data Duplikat: {duplicate_count}")
+if duplicate_count > 0:
+    df = df.drop_duplicates()
+    print("Duplikat telah dihapus.")
+
+numerical_cols = ['age', 'daily_social_media_hours', 'sleep_hours', 'screen_time_before_sleep', 
+                  'academic_performance', 'physical_activity', 'stress_level', 
+                  'anxiety_level', 'addiction_level']
+
+for col in numerical_cols:
+    Q1 = df[col].quantile(0.25)
+    Q3 = df[col].quantile(0.75)
+    IQR = Q3 - Q1
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+    
+    outliers = df[(df[col] < lower_bound) | (df[col] > upper_bound)]
+    if not outliers.empty:
+        print(f"Outliers terdeteksi di kolom {col}: {len(outliers)} baris")
+
+print("\nProses Data Cleaning Selesai.")
+
+--- OUTPUT ---
+Jumlah Missing Values:
+ age                         0
+gender                      0
+daily_social_media_hours    0
+sleep_hours                 0
+screen_time_before_sleep    0
+academic_performance        0
+physical_activity           0
+social_interaction_level    0
+stress_level                0
+anxiety_level               0
+addiction_level             0
+depression_label            0
+platform_Both               0
+platform_Instagram          0
+platform_TikTok             0
+dtype: int64
+
+Jumlah Data Duplikat: 0
+
+Proses Data Cleaning Selesai.
+
+
